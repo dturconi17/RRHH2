@@ -1,0 +1,172 @@
+{% include 'sitio/cabecera.html' %}
+
+<script type="text/javascript">
+    function numbersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // numbers
+    else if ((("0123456789").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    function lettersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // letters
+    else if ((("qwertyuiopasdfghjkl�zxcvbnm������QWERTYUIOPASDFGHJKL�ZXCVBNM������.,'�` ").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    
+    
+    </script>
+    
+
+
+{% if boton == 'Actualizar' %}
+    
+<br>
+{% for datosusuarios in datosusuarios %}
+<div class="container">
+    <br>
+    <form action ="mas/infocontacto" method="post" enctype = "multipart/form-data">
+            {% for _idusuario in _idusuario %}
+                <input type="hidden" name="idusuario" id="idusuario" value= {{session["usuario"] }}> 
+            {% endfor %}
+        <div class="row">
+            <div class="col-md-2">
+                <label for="telefono_fijo" class="form-label">Telefono Fijo:</label>
+                <input type="text" class="form-control form-control-sm" value = {{ datosusuarios[2] }} name="telefono_fijo" id="telefono_fijo" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class="col-md-2">
+                <label for="interno" class="form-label">Interno:</label>
+                <input type="text" class="form-control form-control-sm" value = {{ datosusuarios[3] }} name="interno" id="interno" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class="col-md-2">
+                <label for="celular" class="form-label">Celular:</label>
+                <input type="text" class="form-control form-control-sm" value = {{ datosusuarios[4] }} name="celular" id="celular" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class = "col-md-4">
+                <label for="domicilio_laboral" class="form-label">Domicilio Laboral:</label>
+                <input type="text" class="form-control form-control-sm" name="domicilio_laboral" id="domicilio_laboral" value = "{{ datosusuarios[5] }}" aria-describedby="helpId" required>
+            </div>
+            <div class = "col-md-3">
+                <label for="mail_laboral" class="form-label">Mail Laboral:</label>
+                <input type="email" class="form-control form-control-sm" name="mail_laboral" id="mail_laboral" value = "{{ datosusuarios[6] }}" aria-describedby="helpId" required>
+            </div>
+        </div>
+        <br>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">{{ boton }}</button>
+            </div>
+        </div>
+{% endfor %}
+    </form>
+</div>
+
+{% else %}
+    
+<br>
+
+<div class="container">
+    <br>
+    <form action ="mas/infocontacto" method="post" enctype = "multipart/form-data">
+            {% for _idusuario in _idusuario %}
+                <input type="hidden" name="idusuario" id="idusuario" value= {{session["usuario"] }}> 
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="telefono_fijo" class="form-label">Telefono Fijo:</label>
+                    <input type="text" class="form-control form-control-sm" name="telefono_fijo" id="telefono_fijo" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+                </div>
+                <div class="col-md-2">
+                    <label for="interno" class="form-label">Interno:</label>
+                    <input type="text" class="form-control form-control-sm" name="interno" id="interno" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+                </div>
+                <div class="col-md-2">
+                    <label for="celular" class="form-label">Celular:</label>
+                    <input type="text" class="form-control form-control-sm" name="celular" id="celular" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+    
+                <div class = "col-md-4">
+                    <label for="domicilio_laboral" class="form-label">Domicilio Laboral:</label>
+                    <input type="text" class="form-control form-control-sm" name="domicilio_laboral" id="domicilio_laboral"  aria-describedby="helpId" required>
+                </div>
+                <div class = "col-md-3">
+                    <label for="mail_laboral" class="form-label">Mail Laboral:</label>
+                    <input type="email" class="form-control form-control-sm" name="mail_laboral" id="mail_laboral" aria-describedby="helpId" required >
+                </div>
+            </div>
+            <br>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Insertar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+{% endif %}
+
+
+
+{% include 'sitio/footer.html' %}

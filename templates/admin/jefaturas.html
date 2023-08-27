@@ -1,0 +1,79 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de la Jefatura
+                </div>
+                <div class="card-body">
+                    <form action ="/admin/jefaturas/guardar" method="post" enctype = "multipart/form-data">
+                        
+                        <div class="mb-3">
+                            <label for="txtJefatura" class="form-label">Gerencia a la que pertenece:</label>
+                            <select class="form-select form-select-sm" name="txtGerencia" id="txtGerencia" required>
+                                <option value = "" selected>Escoja una Gerencia</option>
+                                {% for gerencias in gerencias %}
+                                <option value="{{ gerencias[0] }}">{{ gerencias[0] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="txtJefatura" class="form-label">Jefatura</label>
+                            <input type="text" class="form-control" name="txtJefatura" id="txtJefatura" aria-describedby="helpId" placeholder = "Escriba la Jefatura">
+                        </div>
+                       
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Jefatura</th>
+                            <th scope="col">Gerencia</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col">Acciones</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for jefaturas in jefaturas %}
+                        <tr class="">
+                            <td scope="row">{{ jefaturas[0] }}</td>
+                            <td>{{ jefaturas[1] }}</td>
+                            <td>{{ jefaturas[2] }}</td>
+                            <td>{{ jefaturas[4] }}</td>
+                            <td>{{ jefaturas[5] }}</td>
+                            <td>
+                                <form action="/admin/jefaturas/borrar" method="post" >
+                                <input value = "{{ jefaturas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% include 'admin/footer.html' %}

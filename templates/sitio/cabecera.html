@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>HR Book</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS v5.2.1 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#"><img src="/img/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top"></a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+        
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Vacaciones
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% if session["aprobacion"] == 0 and session["licencia_vacaciones"] > 0 %}
+                    <li><a class="dropdown-item" href="/vacaciones">Mis Pedidos</a></li>
+                    <li><a class="dropdown-item" href="/stockvacaciones">Stock</a></li>
+                {% elif session["aprobacion"] > 0 and session["licencia_vacaciones"] > 0 %}
+                    <li><a class="dropdown-item" href="/vacaciones">Mis Pedidos</a></li>
+                    <li><a class="dropdown-item" href="/stockvacaciones">Stock</a></li>
+                    <li><a class="dropdown-item" href="/listar_cronograma">Listar Cronograma</a></li>
+                    <li><a class="dropdown-item" href="/vacaciones_acciones">Aprobar</a></li>
+                {% else %}       
+                    <li>&nbsp;No hay items disponibles</a></li>
+                {% endif %}   
+                
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Mi Perfil
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/masinfousuario2">Actualizar Mi Perfil</a></li>
+                <li><a class="dropdown-item" href="/guia_telefonica">Datos de Contacto</a></li>
+                <li><a class="dropdown-item" href="/cambio_clave">Cambio de Clave</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Utilidades
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/telefonos">Guia Telefonica</a></li>
+                <li><a class="dropdown-item" href="/cumpleanos">Cumpleaños</a></li>
+                <li><a class="dropdown-item" href="/mensajes">Mensajes {% if session["nuevos_saludos"] > 0: %}
+                                                                            ({{ session["nuevos_saludos"] }})
+                                                                        {% endif %}
+                </a></li>
+            </ul>
+        </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-warning my-3 my-sm-0" type="submit">Cerrar Sesion {{ session["nombre_usr"] }}</button>
+        </form>
+    
+    </div>
+</nav>
+<br>

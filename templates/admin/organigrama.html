@@ -1,0 +1,29 @@
+{% include 'admin/cabecera.html' %}
+  
+  <div class="container mt-3">
+    <h2>Orgranigrama</h2>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Cargo</th>
+          <th>Gerencia</th>
+          <th>Jefatura</th>
+          <th>Seniority</th>
+          <th>Colaborador</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for organigrama in organigrama %}
+          <td>{{organigrama[0]}}</td>
+          <td>{{organigrama[1]}}</td>
+          <td>{{organigrama[2]}}</td>
+          <td>{{organigrama[3]}}</td>
+          <td>{{organigrama[4]}}</td>
+        </tr>
+        {% endfor %}
+  
+
+
+{% include 'admin/footer.html' %}

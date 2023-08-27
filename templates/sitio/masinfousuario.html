@@ -1,0 +1,260 @@
+{% include 'sitio/cabecera.html' %}
+
+<script type="text/javascript">
+    function numbersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // numbers
+    else if ((("0123456789").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    function lettersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // letters
+    else if ((("qwertyuiopasdfghjkl�zxcvbnm������QWERTYUIOPASDFGHJKL�ZXCVBNM������.,'�` ").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    
+    
+    </script>
+    
+
+
+{% if boton == 'Actualizar' %}
+    
+<br>
+{% for datosusuarios in datosusuarios %}
+<div class="container">
+    <br>
+    <form action ="mas/infousuario" method="post" enctype = "multipart/form-data">
+            {% for _idusuario in _idusuario %}
+                <input type="hidden" name="idusuario" id="idusuario" value= {{session["usuario"] }}> 
+            {% endfor %}
+        <div class="row">
+            <div class = "col-md-2">
+                <label for="fnacimiento" class="form-label">Fecha de Nacimiento:</label>
+                <input type="date" class="form-control form-control-sm" name="fnacimiento" value = {{ datosusuarios[2] }}id="fnacimiento" aria-describedby="helpId" required>
+            </div>
+            <div class = "col-md-2">
+                <label for="estadocivil" class="form-label">Estado Civil:</label>
+                <select class="form-select form-select-sm" name="estadocivil" id="estadocivil" required>
+                    <option value="{{ datosusuarios[11] }}" selected>{{ datosusuarios[11] }}</option>
+                    <option value="Soltero">Soltero</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Divorciado">Divorciado</option>
+                    <option value="Viudo">Viudo</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="hijos" class="form-label">Hijos:</label>
+                <select class="form-select form-select-sm" name="hijos" id="hijos" required>
+                    <option value="{{ datosusuarios[12] }}" selected>{{ datosusuarios[12] }}</option>
+                    <option value="Sin Hijos">Sin Hijos</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="Mas de 4">Mas de 4</option>
+                </select>
+            </div>
+            <div class = "col-md-3">
+                <label for="formacion" class="form-label">Profesion:</label>
+                <select class="form-select form-select-sm" name="formacion" id="formacion" required>
+                    <option value="{{ datosusuarios[1] }}" selected>{{ datosusuarios[1] }}</option>
+                    <option value="Tecnico">Tecnico</option>
+                    <option value="Licenciado">Licenciado</option>
+                    <option value="Ingeniero">Ingeniero</option>
+                    <option value="Otra Profesion">Otra Profesion</option>
+                    <option value="Sin Profesion">Sin Profesion</option>
+                </select>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class = "col-md-3">
+                <label for="calle" class="form-label">Calle:</label>
+                <input type="text" class="form-control form-control-sm" value = {{ datosusuarios[3] }} name="calle" id="calle" aria-describedby="helpId" required>
+            </div>
+            <div class="col-md-1">
+                <label for="altura" class="form-label">Altura:</label>
+                <input type="text" class="form-control form-control-sm" value = {{ datosusuarios[4] }} name="altura" id="altura" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class = "col-md-1">
+                <label for="piso" class="form-label">Piso:</label>
+                <input type="text" class="form-control form-control-sm" name="piso" id="piso" value = "{{ datosusuarios[5] }}" aria-describedby="helpId">
+            </div>
+            <div class = "col-md-1">
+                <label for="depto" class="form-label">Depto:</label>
+                <input type="text" class="form-control form-control-sm" name="depto" id="depto" value = "{{ datosusuarios[6] }}" aria-describedby="helpId">
+            </div>
+            <div class = "col-md-3">
+                <label for="localidad" class="form-label">Localidad:</label>
+                <input type="text" class="form-control form-control-sm" name="localidad" value = "{{ datosusuarios[8] }}" id="localidad" aria-describedby="helpId" required>
+            </div>
+            <div class = "col-md-1">
+                <label for="cp" class="form-label">CP:</label>
+                <input type="text" class="form-control form-control-sm" name="cp" id="cp" value = "{{ datosusuarios[7] }}" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class = "col-md-2">
+                <label for="provincia" class="form-label">Provincia:</label>
+                <input type="text" class="form-control form-control-sm" name="provincia" id="provincia" value = "{{ datosusuarios[9] }}" aria-describedby="helpId" required  onKeyPress='return lettersonly(this, event)'>
+            </div>
+        </div>
+        <br>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">{{ boton }}</button>
+            </div>
+        </div>
+{% endfor %}
+    </form>
+</div>
+
+{% else %}
+    
+<br>
+
+<div class="container">
+    <br>
+    <form action ="mas/infousuario" method="post" enctype = "multipart/form-data">
+            {% for _idusuario in _idusuario %}
+                <input type="hidden" name="idusuario" id="idusuario" value= {{session["usuario"] }}> 
+            {% endfor %}
+        <div class="row">
+            <div class = "col-md-2">
+                <label for="fnacimiento" class="form-label">Fecha de Nacimiento:</label>
+                <input type="date" class="form-control form-control-sm" name="fnacimiento" id="fnacimiento" aria-describedby="helpId" required>
+            </div>
+            <div class = "col-md-2">
+                <label for="estadocivil" class="form-label">Estado Civil:</label>
+                <select class="form-select form-select-sm" name="estadocivil" id="estadocivil" aria-describedby="helpId" required>
+                    <option value = "" selected>Selecciona</option>
+                    <option value="Soltero">Soltero</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Divorciado">Divorciado</option>
+                    <option value="Viudo">Viudo</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="hijos" class="form-label">Hijos:</label>
+                <select class="form-select form-select-sm" name="hijos" id="hijos" required>
+                    <option value = "" selected>Selecciona</option>
+                    <option value="Sin Hijos">Sin Hijos</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="Mas de 4">Mas de 4</option>
+                </select>
+            </div>
+            <div class = "col-md-3">
+                <label for="formacion" class="form-label">Profesion:</label>
+                <select class="form-select form-select-sm" name="formacion" id="formacion" required>
+                    <option value = "" selected>Selecciona</option>
+                    <option value="Tecnico">Tecnico</option>
+                    <option value="Licenciado">Licenciado</option>
+                    <option value="Ingeniero">Ingeniero</option>
+                    <option value="Otra Profesion">Otra Profesion</option>
+                    <option value="Sin Profesion">Sin Profesion</option>
+                </select>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class = "col-md-3">
+                <label for="calle" class="form-label">Calle:</label>
+                <input type="text" class="form-control form-control-sm"  name="calle" id="calle" aria-describedby="helpId" required>
+            </div>
+            <div class="col-md-1">
+                <label for="altura" class="form-label">Altura:</label>
+                <input type="text" class="form-control form-control-sm"  name="altura" id="altura" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class = "col-md-1">
+                <label for="piso" class="form-label">Piso:</label>
+                <input type="text" class="form-control form-control-sm" name="piso" id="piso"  aria-describedby="helpId">
+            </div>
+            <div class = "col-md-1">
+                <label for="depto" class="form-label">Depto:</label>
+                <input type="text" class="form-control form-control-sm" name="depto" id="depto"  aria-describedby="helpId">
+            </div>
+            <div class = "col-md-3">
+                <label for="localidad" class="form-label">Localidad:</label>
+                <input type="text" class="form-control form-control-sm" name="localidad"  id="localidad" aria-describedby="helpId" required>
+            </div>
+            <div class = "col-md-1">
+                <label for="cp" class="form-label">CP:</label>
+                <input type="text" class="form-control form-control-sm" name="cp" id="cp"  aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class = "col-md-2">
+                <label for="provincia" class="form-label">Provincia:</label>
+                <input type="text" class="form-control form-control-sm" name="provincia" id="provincia" aria-describedby="helpId" required>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Insertar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+{% endif %}
+
+
+
+{% include 'sitio/footer.html' %}

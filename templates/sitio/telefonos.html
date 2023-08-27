@@ -1,0 +1,58 @@
+{% include 'sitio/cabecera.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Buscar Empleado
+                </div>
+                <div class="card-body">
+                    <form action ="buscar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="desde" class="form-label">Apellido:</label>
+                            <input type="input" name="apellido" id="apellido" aria-describedby="helpId"  required>
+                            <span class="validity"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9">
+
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre y Apellido</th>
+                            <th scope="col">Interno</th>
+                            <th scope="col">Telefono Fijo</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Domicilio Laboral</th>
+                            <th scope="col">Mail Laboral</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for datosusuario in datosusuario %}
+                        <tr class="">
+                            <td scope="row">{{ datosusuario[0] }}</td>
+                            <td>{{ datosusuario[2] }}</td>
+                            <td>{{ datosusuario[3] }}</td>
+                            <td>{{ datosusuario[4] }}</td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+ 
+        </div>
+    </div>
+</div>
+
+{% include 'sitio/footer.html' %}

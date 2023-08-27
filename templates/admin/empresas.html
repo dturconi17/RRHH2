@@ -1,0 +1,65 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de las Empresas
+                </div>
+                <div class="card-body">
+                    <form action ="/admin/empresa/guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="txtEmpresa" class="form-label">Empresa</label>
+                            <input type="text" class="form-control" name="txtEmpresa" id="txtEmpresa" aria-describedby="helpId" placeholder = "Nombre de la Empresa">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Empresa</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for empresas in empresas %}
+                        <tr class="">
+                            <td scope="row">{{ empresas[0] }}</td>
+                            <td>{{ empresas[1] }}</td>
+                            <td>{{ empresas[4] }}</td>
+                            <td>{{ empresas[3] }}</td>
+                            <td>
+                                <form action="/admin/empresa/borrar" method="post" >
+                                <input value = "{{ empresas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% include 'admin/footer.html' %}

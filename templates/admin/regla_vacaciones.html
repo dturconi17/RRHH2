@@ -1,0 +1,77 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Ingreso de la Categoria
+                </div>
+                <div class="card-body">
+                    <form action ="/admin/reglas_vacaciones/guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="desde" class="form-label">Desde año:</label>
+                            <input type="text" class="form-control" name="desde" id="desde" aria-describedby="helpId" placeholder = "Escriba año inicial" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hasta" class="form-label">Hasta año:</label>
+                            <input type="text" class="form-control" name="hasta" id="hasta" aria-describedby="helpId" placeholder = "Escriba año inicial" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dias" class="form-label">Cantidad de Dias:</label>
+                            <input type="text" class="form-control" name="dias" id="dias" aria-describedby="helpId" placeholder = "Escriba dias de licencia" required>
+                        </div>
+                                                
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Desde (años)</th>
+                            <th scope="col">Hasta (años)</th>
+                            <th scope="col">Dias</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reglas in reglas %}
+                        <tr class="">
+                            <td scope="row">{{ reglas[0] }}</td>
+                            <td>{{ reglas[1] }}</td>
+                            <td>{{ reglas[2] }}</td>
+                            <td>{{ reglas[3] }}</td>
+                            <td>{{ reglas[4] }}</td>
+                            <td>{{ reglas[5] }}</td>
+                            <td>
+                                <form action="/admin/reglas_vacaciones/borrar" method="post" >
+                                <input value = "{{ reglas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% include 'admin/footer.html' %}

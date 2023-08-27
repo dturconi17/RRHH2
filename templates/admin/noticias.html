@@ -1,0 +1,92 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de la Noticia
+                </div>
+                <div class="card-body">
+                    <form action ="/admin/noticias/guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="txtTitulo" class="form-label">Titulo</label>
+                            <input type="text" class="form-control" name="txtTitulo" id="txtTitulo" aria-describedby="helpId" placeholder = "Escriba el Titulo">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtNoticia" class="form-label">Noticia</label>
+                            <input type="text" class="form-control" name="txtNoticia" id="txtNoticia" aria-describedby="helpId" placeholder = "Escriba la Noticia">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtDesarrollo" class="form-label">Desarrollo</label>
+                            <input type="text" class="form-control" name="txtDesarrollo" id="txtDesarrollo" aria-describedby="helpId" placeholder = "Desarrollo Noticia">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtUrl" class="form-label">Link a mas informacion</label>
+                            <input type="text" class="form-control" name="txtUrl" id="txtUrl" aria-describedby="helpId" placeholder = "Escriba URL a visitar">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtImagen" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" name="txtImagen" id="txtImagen" aria-describedby="helpId" placeholder = "Seleccione la Imagen a mostrar">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-7">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">titulo</th>
+                            <th scope="col">Noticia</th>
+                            <th scope="col">Desarrollo</th>
+                            <th scope="col">Link</th>
+                            <th scope="col">Creado Por</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        {% for noticias in noticias %}
+                        <tr class="">
+                            <td scope="row">{{ noticias[0] }}</td>
+                            <td><img width="60" src="/img/{{ noticias[5] }}" class="img-fluid rounded-top" alt=""></td>
+                            <td>{{ noticias[1] }}</td>
+                            <td>{{ noticias[2] }}</td>
+                            <td>{{ noticias[3] }}</td>
+                            <td>{{ noticias[4] }}</td>
+                            <td>{{ noticias[9] }}</td>
+                            <td>{{ noticias[7] }}</td>
+                            <td>
+                                <form action="/admin/noticias/borrar" method="post" >
+                                <input value = "{{ noticias[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            <br>
+                                <form action="/admin/noticias/{{ noticias[12] }}" method="post" >
+                                    <input value = "{{ noticias[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                    <button type="submit" class="{{ noticias[10] }}">{{ noticias[11] }}</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% include 'admin/footer.html' %}

@@ -1,0 +1,114 @@
+{% include 'sitio/cabecera.html' %}
+
+
+<h4> Cumpleaños de Hoy! </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre y Apellido</th>
+                            <th scope="col">Cumple:</th>
+                            <th scope="col">Mandale un mensaje!:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for datoscumplehoy in datoscumplehoy %}
+                        <tr class="">
+                            <td scope="row">{{ datoscumplehoy[0] }}</td>
+                            <td>{{ datoscumplehoy[1] }}</td>
+                                {% if datoscumplehoy[8] == 'es_form': %}
+                                <td>
+                                    <form action="cumpleanos/mensaje" method="post" >
+                                    <input value = "{{ datoscumplehoy[2] }}" type="hidden" name = "Idusuario" id = "Idusuario"></input>
+                                    <input type="input" name="mensaje" id="mensaje" aria-describedby="helpId">
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Enviar">
+                                    </form>
+                                </td>
+                                {% else: %}
+                                <td>{{ datoscumplehoy[5]}}</td>
+                                {% endif %}
+                                <td></td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+ 
+        </div>
+    </div>
+</div>
+<br>
+<h4> Cumpleaños de Mañana! </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre y Apellido</th>
+                            <th scope="col">Cumple:</th>
+                            <th scope="col">Mandale un mensaje!:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for datoscumplemanana in datoscumplemanana %}
+                        <tr class="">
+                            <td scope="row">{{ datoscumplemanana[0] }}</td>
+                            <td>{{ datoscumplemanana[1] }}</td>
+                            {% if datoscumplemanana[8] == 'es_form': %}
+                                <td>
+                                    <form action="cumpleanos/mensaje" method="post" >
+                                    <input value = "{{ datoscumplemanana[2] }}" type="hidden" name = "Idusuario" id = "Idusuario"></input>
+                                    <input type="input" name="mensaje" id="mensaje" aria-describedby="helpId">
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Enviar">
+                                    </form>
+                                </td>
+                                {% else: %}
+                                <td>{{ datoscumplemanana[5]}}</td>
+                                {% endif %}
+                                <td></td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+ 
+        </div>
+    </div>
+</div>
+<br>
+<h4> Proximos Cumpleaños </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre y Apellido</th>
+                            <th scope="col">Cumple:</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for datoscumple in datoscumple %}
+                        <tr class="">
+                            <td scope="row">{{ datoscumple[0] }}</td>
+                            <td>{{ datoscumple[1] }}</td>
+                            
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+ 
+        </div>
+    </div>
+</div>
+
+
+{% include 'sitio/footer.html' %}

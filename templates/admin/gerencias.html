@@ -1,0 +1,65 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de la Gerencia
+                </div>
+                <div class="card-body">
+                    <form action ="/admin/gerencias/guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="txtGerencia" class="form-label">Gerencia</label>
+                            <input type="text" class="form-control" name="txtGerencia" id="txtGerencia" aria-describedby="helpId" placeholder = "Escriba la Gerencia">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Gerencia</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for gerencias in gerencias %}
+                        <tr class="">
+                            <td scope="row">{{ gerencias[0] }}</td>
+                            <td>{{ gerencias[1] }}</td>
+                            <td>{{ gerencias[4] }}</td>
+                            <td>{{ gerencias[3] }}</td>
+                            <td>
+                                <form action="/admin/gerencias/borrar" method="post" >
+                                <input value = "{{ gerencias[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% include 'admin/footer.html' %}

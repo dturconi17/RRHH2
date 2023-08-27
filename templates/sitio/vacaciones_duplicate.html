@@ -1,0 +1,71 @@
+{% include 'sitio/cabecera.html' %}
+<br>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Carga de Vacaciones
+                </div>
+                <div class="card-body">
+                    <form action ="vacaciones/guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="desde" class="form-label">Fecha de Inicio:</label>
+                            <input type="date" class="form-control" name="desde" id="desde" aria-describedby="helpId">
+                        </div>
+                        <div class="mb-3">
+                            <label for="hasta" class="form-label">Fecha de Fin</label>
+                            <input type="date" class="form-control" name="hasta" id="hasta" aria-describedby="helpId">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Fecha Desde</th>
+                            <th scope="col">Fecha Hasta</th>
+                            <th scope="col">Fecha Solicitud</th>
+                            <th scope="col">Acciones</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in stock %}
+                        <tr class="">
+                            <td scope="row">{{ stock[0] }}</td>
+                            <td>{{ stock[2] }}</td>
+                            <td>{{ stock[3] }}</td>
+                            <td>{{ stock[4] }}</td>
+                            <td>
+                                <form action="vacaciones/borrar" method="post" >
+                                <input value = "{{ stock[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>
+                            <td>{{ stock[5] }}</td>
+                        </tr>
+                        <tr class="">
+                            <td scope="row" colspan="7">Aprobado por: el dia:</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                   
+        </div>
+    </div>
+</div>
+
+
+{% include 'sitio/footer.html' %}

@@ -1,0 +1,136 @@
+{% include 'admin/cabecera.html' %}
+<script type="text/javascript">
+    function numbersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // numbers
+    else if ((("0123456789").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    function lettersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // letters
+    else if ((("qwertyuiopasdfghjkl�zxcvbnm������QWERTYUIOPASDFGHJKL�ZXCVBNM������.,'�` ").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    
+    
+    </script>
+    
+
+
+<br>
+
+<div class="container">
+    <form action ="/admin/vacaciones/grabar" method="post" enctype = "multipart/form-data">
+        {% for editar in editar %}
+        <div class = "row">
+            <div class="col">
+                <label for="usuario" class="form-label">ID de vacaciones y Usuario:&nbsp; </label><b> {{editar[0]}} - {{editar[1]}}</b>
+                <input type="hidden" value = "{{editar[0]}}" class="form-control" name="Idvacaciones" id="Idvacaciones" aria-describedby="helpId">
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col">
+                <label for="clave" class="form-label">Periodo:&nbsp;</label><b>{{editar[2]}}</b>
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col">
+                <label for="usuario" class="form-label">Fecha de Ingreso:&nbsp; </label><b> {{editar[10]}}</b>
+                <input type="hidden" value = "{{editar[0]}}" class="form-control" name="Idvacaciones" id="Idvacaciones" aria-describedby="helpId">
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col">
+                <label for="clave" class="form-label">Fecha Calculo Vacaciones:&nbsp;</label><b>{{editar[11]}}</b>
+            </div>
+        </div>
+        <br>
+        <div class = "row">
+            <div class="col">
+                <label for="nombre" class="form-label">Dias Totales:</label>
+                <input type="text" value = "{{editar[3]}}" class="form-control" name="dias_totales" id="dias_totales" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class="col">
+                <label for="apellido" class="form-label">Dias Tomados:</label>
+                <input type="text" value = "{{editar[4]}}" class="form-control" name="dias_tomados" id="dias_tomados" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class="col">
+                <label for="documento" class="form-label">Dias Pendientes:</label>
+                <input type="text" value = "{{editar[5]}}" class="form-control" name="dias_pendientes" id="dias_pendientes" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class="col">
+                <label for="documento" class="form-label">Dias por Aprobarse:</label>
+                <input type="text" value = "{{editar[6]}}" class="form-control" name="dias_por_aprobarse" id="dias_por_aprobarse" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+            <div class="col">
+                <label for="documento" class="form-label">Dias Aprobados:</label>
+                <input type="text" value = "{{editar[7]}}" class="form-control" name="dias_aprobados" id="dias_aprobados" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+        </div>            
+        
+        <br>
+        <div class = "row">
+            <div class = "col-md-2">            
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+        </div>        
+    </form>
+    {% endfor %}
+</div>
+
+    
+
+{% include 'admin/footer.html' %}

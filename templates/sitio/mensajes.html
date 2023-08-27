@@ -1,0 +1,86 @@
+{% include 'sitio/cabecera.html' %}
+
+
+<h4> Mensajes Pendientes de Lectura </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table">
+                    <thead>
+                        <tr>
+                           
+                            <th scope="col">Quien te lo envio:</th>
+                            <th scope="col">Fecha:</th>
+                            <th scope="col">Mensaje:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for datosmensaje in datosmensaje %}
+                        <tr class="">
+                           
+                            <td>{{ datosmensaje[1] }}</td>
+                            <td>{{ datosmensaje[2]}}</td>
+                            
+                                {% if datosmensaje[5] == 'es_form': %}
+                                <td>
+                                <form action="cumpleanos/reply" method="post" >
+                                <input value = "{{ datosmensaje[4] }}" type="hidden" name = "Idrecibe" id = "Idrecibe"></input>
+                                <input value = "{{ datosmensaje[3] }}" type="hidden" name = "Idreply" id = "Idreply"></input>
+                                <input type="input" name="mensaje" id="mensaje" aria-describedby="helpId">
+                                <input type="submit" class="btn btn-danger btn-sm" value="Enviar">
+                                </form>
+                                </td>
+                                {% else: %}
+                                <td>{{ datosmensaje[0]}}</td>
+                                {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+ 
+        </div>
+    </div>
+</div>
+<br>
+<h4> Mensajes Leidos </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Quien te lo envio:</th>
+                            <th scope="col">Fecha:</th>
+                            <th scope="col">Mensaje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for datosmensaje2 in datosmensaje2 %}
+                        <tr class="">
+                            
+                            <td>{{ datosmensaje2[1] }}</td>
+                            <td>{{ datosmensaje2[2]}}</td>
+                            {% if datosmensaje2[5] == 'es_form': %}
+                                <td>
+                                <form action="cumpleanos/reply" method="post" >
+                                <input value = "{{ datosmensaje2[4] }}" type="hidden" name = "Idrecibe" id = "Idrecibe"></input>
+                                <input value = "{{ datosmensaje2[3] }}" type="hidden" name = "Idreply" id = "Idreply"></input>
+                                <input type="input" name="mensaje" id="mensaje" aria-describedby="helpId">
+                                <input type="submit" class="btn btn-danger btn-sm" value="Enviar">
+                                </form>
+                                </td>
+                            {% else: %}
+                                <td>{{ datosmensaje2[0]}}</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+ 
+        </div>
+    </div>
+</div>
+
+{% include 'sitio/footer.html' %}

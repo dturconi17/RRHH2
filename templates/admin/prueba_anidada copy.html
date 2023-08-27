@@ -1,0 +1,88 @@
+
+{% include 'admin/cabecera.html' %}
+<br>
+
+
+<div class="container">
+    <form action ="alta/usuarionuevo" method="post" enctype = "multipart/form-data">
+        
+            <div class = "row">
+            <div class="col">
+                <label for="Gerencia" class="form-label">Gerencia:</label>
+                <select class="form-select form-select" name="Gerencia" id="Gerencia">
+                    
+                </select>
+            </div>
+            <div class="col">
+                <label for="Jefatura" class="form-label">Jefatura:</label>
+                <select class="form-select form-select" name="Jefatura" id="Jefatura">
+                </select>
+            </div>
+            <div class="col">
+                <label for="Nivel" class="form-label">Nivel:</label>
+                <select class="form-select form-select" name="Nivel" id="Nivel">
+                </select>
+            </div>
+        </div>
+        <br>
+              
+    </form>
+</div>
+
+<script type="text/javascript">
+    let $gerencia = document.getElementById('Gerencia')
+    let $jefatura = document.getElementById('Jefatura')
+    let $nivel = document.getElementById('Nivel')
+    
+    let gerencias =['Mkt', 'RRHH']
+    let jefatura =['BI', 'Sueldos', 'Comu', 'Capa']
+    let nivel = ['Nivel 0','Nivel 1','Nivel 2','Nivel 3','Nivel 4','Nivel 5']
+    
+    function mostrarLugares (arreglo,lugar) {
+        let elementos = '<option selected disabled>--Seleccione--</option>'
+        for (let i = 0; i < arreglo.length; i++) {
+            elementos += '<option value="' + arreglo[i] +'">' + arreglo[i] + '</option>'
+            }
+            lugar.innerHTML = elementos
+        }
+    
+    mostrarLugares(gerencias, $gerencia)
+    
+    function recortar (array, inicio, fin, lugar) {
+        let recortar = array.slice(inicio, fin)
+        mostrarLugares(recortar, lugar)
+    }
+
+    $gerencia.addEventListener('change', function() {
+            let valor = $gerencia.value
+            switch(valor) {
+                case 'RRHH':
+                    recortar(jefatura, 2,4, $jefatura)
+                break 
+                case 'Mkt':
+                    recortar(jefatura, 0,2, $jefatura)
+                break
+            }
+            $nivel.innerHTML = '--Seleccione--'
+        }
+       
+    )
+
+    $jefatura.addEventListener('change', function() {
+            let valor = $jefatura.value
+            
+            if(valor== 'BI' | valor== 'Sueldos'){
+                recortar(nivel, 0,3, $nivel)
+            } else if (valor == 'Comu' | valor == 'Capa'){
+                recortar(nivel, 4,6, $nivel)
+            }
+
+    }
+    )
+
+
+    </script>
+    
+
+
+{% include 'admin/footer.html' %}

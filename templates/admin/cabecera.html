@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>HR Book</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+  
+
+</head>
+<body>
+
+{% if session["funcion"] == 99 %}
+
+        <nav class="navbar navbar-expand" style="background-color: #e06e57;">
+            <div class="nav navbar-nav" >
+                <a class="navbar-brand" href="#">
+                    <img src="/img/logo.png" alt="" width="45" height="40" class="d-inline-block align-text-top">
+                </a>
+                <a class="nav-item nav-link active" style="color: white;" href="/admin_inicio" aria-current="page">Inicio<span class="visually-hidden">(current)</span></a>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" style="color: black;" href="/usuarios">Usuarios</a></li>
+                        <li><a class="dropdown-item" style="color: black;" href="/noticias">Noticias</a></li>
+                        
+                    </ul>
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Vacaciones
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" style="color: black;" href="/cargarvacaciones">Cargar</a></li>
+                        <li><a class="dropdown-item" style="color: black;" href="/listarvacaciones">Listar</a></li>
+                        <li><a class="dropdown-item" style="color: black;" href="/vacaciones_acciones">Aprobar</a></li>
+                        <li><a class="dropdown-item" style="color: black;" href="/listar_cronograma">Listar Cronograma</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Setup</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" style="color: black;" href="/empresa">Empresas</a></li>
+                            <li><a class="dropdown-item" style="color: black;" href="/gerencias">Gerencias</a></li>
+                            <li><a class="dropdown-item" style="color: black;" href="/jefaturas">Jefaturas</a></li>
+                            <li><a class="dropdown-item" style="color: black;" href="/niveles">Seniority</a></li>
+                            <li><a class="dropdown-item" style="color: black;" href="/reglas_vacaciones">Reglas de Vacaciones</a></li>
+                        </ul>
+                    </li>
+                <a class="nav-item nav-link" style="color: white;" href="/organigrama">Organigrama</a>    
+                <a class="nav-item nav-link" style="color: white;" href="/">Salir</a>
+            </div>
+        </nav>
+        <br>
+
+{% else %}
+{% include('/sitio/cabecera.html') %}
+{% endif %}
+
+<div class = "container">

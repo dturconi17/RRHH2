@@ -1,0 +1,71 @@
+{% include 'admin/cabecera.html' %}
+
+    <div class="row">
+        <div class="col-md-3">
+            <a name="" id="" class="btn btn-success" href="alta_usuario" role="button">Dar de Alta</a>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Funcion</th>
+                        <th scope="col">Gerencia</th>
+                        <th scope="col">Jefatura</th>
+                        <th scope="col">Atributo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuarios in usuarios %}
+                    <tr class="">
+                        <td scope="row">{{ usuarios[0] }}</td>
+                        <td>{{ usuarios[1] }}</td>
+                        <td>{{ usuarios[2] }}</td>
+                        <td>{{ usuarios[3] }}</td>
+                        <td>{{ usuarios[4] }}</td>
+                        <td>{{ usuarios[5] }}</td>
+                        <td>{{ usuarios[6] }}</td>
+                        <td>
+                            <form action="usuarios/borrar" method="post" >
+                            <input value = "{{ usuarios[0] }}" type="hidden" name = "Idusuario" id = "Idusuario"></input>
+                            <input type="submit" class="btn btn-danger btn-sm" value="Borrar">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="usuarios/editar" method="post" >
+                            <input value = "{{ usuarios[0] }}" type="hidden" name = "Idusuario" id = "Idusuario"></input>
+                            <input type="submit" class="btn btn-warning btn-sm" value="Editar">
+                            </form>
+                        </td> 
+                        {% if usuarios[7] == 'Clave123' %}
+                        <td>
+                            <form action="usuarios/reseteo" method="post" >
+                            <input value = "{{ usuarios[0] }}" type="hidden" name = "Idusuario" id = "Idusuario"></input>
+                            <input type="submit" class="btn btn-info btn-sm" value="Clave Reseteada">
+                            </form>
+                        </td>
+                        {% else %}
+                        <td>
+                            <form action="usuarios/reseteo" method="post" >
+                            <input value = "{{ usuarios[0] }}" type="hidden" name = "Idusuario" id = "Idusuario"></input>
+                            <input type="submit" class="btn btn-success btn-sm" value="Reseteo Clave"</input>
+                            </form>
+                        </td> 
+                        {% endif %}
+                                        </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+
+        </div>
+    </div>
+
+{% include 'admin/footer.html' %}

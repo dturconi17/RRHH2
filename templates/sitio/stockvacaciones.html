@@ -1,0 +1,40 @@
+{% include 'sitio/cabecera.html' %}
+
+<div >
+    <div class="container">
+        <h1 class="display-3"></h1>
+        <p class="lead"><b>Vacaciones Disponibles.</b></p>
+    </div>
+    <div class="col-md-9">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Colaborador</th>
+                    <th scope="col">Periodo</th>
+                    <th scope="col">Dias Totales</th>
+                    <th scope="col">Gozados</th>
+                    <th scope="col">Pendientes</th>
+                    <th scope="col">Aprobados</th>
+                    <th scope="col">Pendientes de Aprobacion</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stock %}
+                    <tr class="">
+                        <td scope="row">{{ stock[1] }}</td>
+                        <td scope="row">{{ stock[2] }}</td>
+                        <td>{{ stock[3] }}</td>
+                        <td>{{ stock[4] }}</td>
+                        <td>{{ stock[5] }}</td> 
+                        <td>{{ stock[7] }}</td> 
+                        <td>{{ stock[6] }}</td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% include 'sitio/footer.html' %}

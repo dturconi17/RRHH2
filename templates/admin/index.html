@@ -1,0 +1,90 @@
+{% include 'admin/cabecera.html' %}
+
+    
+
+<div class="p-5 bg-light">
+    <div class="container">
+        <h1 class="display-3"> 
+            {% if session["sexo"] == 'F' %}
+            {% print "Bienvenida" %} 
+            {% else %}
+            {% print "Bienvenido" %} 
+            {% endif %}          
+        <strong> {{ session["nombre_usr"] }} </strong> al Administrador.</h1>
+        <hr class = "my-2">
+    </div>
+</div>
+
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
+<br>
+<div class="row">
+    {% if cnt_empresas == 0 %}
+    <div class="col-md-3">
+        <div class="toast-body">
+            ¡Hola {{ session["nombre_usr"] }}!. Debes cargar Empresas como primer paso.
+            <div class="mt-2 pt-2 border-top">
+                <button type="button" class="btn btn-primary btn-sm"><a href="/empresa" style="color: white;">Ir Empresas</a></button>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endif %}
+    {% if cnt_gerencias == 0 %}
+    <div class="col-md-3">
+        <div class="toast-body">
+            ¡Hola {{ session["nombre_usr"] }}!. Carga Gerencias ahora.
+            <div class="mt-2 pt-2 border-top">
+                <button type="button" class="btn btn-primary btn-sm"><a href="/gerencias" style="color: white;">Ir Gerencias</a></button>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endif %}
+    {% if cnt_jefaturas == 0 %}
+    <div class="col-md-3">
+        <div class="toast-body">
+            Segundo paso, cargar Jefaturas.
+            <div class="mt-2 pt-2 border-top">
+                <button type="button" class="btn btn-primary btn-sm"><a href="/jefaturas" style="color: white;">Ir Jefaturas</a></button>
+            </div>
+            <br>
+        </div>
+    </div>
+    {% endif %}
+    {% if cnt_niveles == 0 %}
+    <div class="col-md-3">
+        <div class="toast-body">
+            Tercer paso, carga niveles de autorizacion.
+            <div class="mt-2 pt-2 border-top">
+                <button type="button" class="btn btn-primary btn-sm"><a href="/niveles" style="color: white;">Ir Autorizacion</a></button>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endif %}
+    {% if cnt_reglas == 0 %}
+    <div class="col-md-3">
+        <div class="toast-body">
+            Carga las reglas de vacaciones.
+            <div class="mt-2 pt-2 border-top">
+                <button type="button" class="btn btn-primary btn-sm"><a href="/reglas_vacaciones" style="color: white;">Ir a Reglas</a></button>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endif %}
+    {% if cnt_usuario == 0 %}
+    <div class="col-md-3">
+        <div class="toast-body">
+            Carga los Usuarios.
+            <div class="mt-2 pt-2 border-top">
+                <button type="button" class="btn btn-primary btn-sm"><a href="/usuarios" style="color: white;">Ir a Usuarios</a></button>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endif %}
+</div>
+
+{% include 'admin/footer.html' %}

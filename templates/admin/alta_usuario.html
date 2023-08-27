@@ -1,0 +1,172 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<script type="text/javascript">
+function numbersonly(myfield, e, dec)
+{
+var key;
+var keychar;
+
+if (window.event)
+   key = window.event.keyCode;
+else if (e)
+   key = e.which;
+else
+   return true;
+keychar = String.fromCharCode(key);
+
+// control keys
+if ((key==null) || (key==0) || (key==8) ||
+    (key==9) || (key==13) || (key==27) )
+   return true;
+
+// numbers
+else if ((("0123456789").indexOf(keychar) > -1))
+   return true;
+
+// decimal point jump
+else if (dec && (keychar == "."))
+   {
+   myfield.form.elements[dec].focus();
+   return false;
+   }
+else
+   return false;
+}
+
+function lettersonly(myfield, e, dec)
+{
+var key;
+var keychar;
+
+if (window.event)
+   key = window.event.keyCode;
+else if (e)
+   key = e.which;
+else
+   return true;
+keychar = String.fromCharCode(key);
+
+// control keys
+if ((key==null) || (key==0) || (key==8) ||
+    (key==9) || (key==13) || (key==27) )
+   return true;
+
+// letters
+else if ((("qwertyuiopasdfghjkl�zxcvbnm������QWERTYUIOPASDFGHJKL�ZXCVBNM������.,'�` ").indexOf(keychar) > -1))
+   return true;
+
+// decimal point jump
+else if (dec && (keychar == "."))
+   {
+   myfield.form.elements[dec].focus();
+   return false;
+   }
+else
+   return false;
+}
+
+
+
+</script>
+
+
+<div class="container">
+    <form action ="alta/usuarionuevo" method="post" enctype = "multipart/form-data">
+        <div class = "row">
+            <div class = "col-md-3">
+            <div class="mb-3">
+            <label for="desde" class="form-label">Fecha de Incorporacion:</label>
+            <input type="date" class="form-control" name="fecha_incorporacion" id="fecha_incorporacion" aria-describedby="helpId" required>
+            <span class="validity"></span>
+        </div>
+        </div>
+        </div>
+        <br>
+        <div class = "row">
+            
+            <div class="col">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" required onKeyPress='return lettersonly(this, event)'>
+            </div>
+            <div class="col">
+                <label for="apellido" class="form-label">Apellido:</label>
+                <input type="text" class="form-control" name="apellido" id="apellido" aria-describedby="helpId" required onKeyPress='return lettersonly(this, event)'>
+            </div>
+            <div class="col">
+                <label for="documento" class="form-label">Documento:</label>
+                <input type="text" class="form-control" name="documento" id="documento" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+            </div>
+                    
+        
+            <div class="col">
+                <label for="sexo" class="form-label">Sexo:</label>
+                <select class="form-select form-select" name="sexo" id="sexo"  required>
+                    <option value="" selected>Escoja Sexo</option>
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="mail" class="form-label">Mail:</label>
+                <input type="email" class="form-control" name="mail" id="mail" aria-describedby="helpId"  required>
+            </div>
+        </div>
+            <br>
+        
+            <div class = "row">
+            <div class="col">
+                    <label for="Empresa" class="form-label">Empresa:</label>
+                    <select class="form-select form-select" name="Empresa" id="Empresa"  required>
+                        <option value = "" selected>Escoja una Empresa</option>
+                        {% for empresas in empresas %}
+                        <option value="{{ empresas[1] }}">{{ empresas[0] }}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+
+            <div class="col">
+                <label for="Nivel" class="form-label">Cargo:</label>
+                <select class="form-select form-select" name="Nivel" id="Nivel" required>
+                    <option value = "" selected>Cargo / Seniority</option>
+                    {% for niveles in niveles %}
+                    <option value="{{ niveles[1] }}">{{ niveles[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col">
+                <label for="Gerencia" class="form-label">Gerencia:</label>
+                <select class="form-select form-select" name="Gerencia" id="Gerencia"  required>
+                    <option value = "" selected>Escoja una Gerencia</option>
+                    <option value="108">Es CEO</option>
+                    {% for gerencias in gerencias %}
+                    <option value="{{ gerencias[1] }}">{{ gerencias[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <label for="Jefatura" class="form-label">Jefatura:</label>
+                <select class="form-select form-select" name="Jefatura" id="Jefatura"  required>
+                    <option value = "" selected>Escoja una Jefatura</option>
+                    <option value = "108">Es CEO</option>
+                    <option value = "103">Es Gerente</option>
+                    {% for jefaturas in jefaturas %}
+                    <option value="{{ jefaturas[1] }}">{{ jefaturas[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+        <br>
+        <div class = "row">
+            <div class = "col-md-2">            
+                <button type="submit" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>        
+    </form>
+</div>
+
+    
+
+{% include 'admin/footer.html' %}

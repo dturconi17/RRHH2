@@ -1,0 +1,102 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<h4> Pendientes de Aprobacion </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Solicitante</th>
+                            <th scope="col">Fecha Desde</th>
+                            <th scope="col">Fecha Hasta</th>
+                            <th scope="col">Dias Totales</th>    
+                            <th scope="col">Fecha Solicitud</th>
+                            <th class="col">Acciones</th>
+                            <th class="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pendientes in pendientes %}
+                        <tr class="">
+                            <td scope="row">{{ pendientes[0] }}</td>
+                            <td>{{ pendientes[6] }}</td>
+                            <td>{{ pendientes[2] }}</td>
+                            <td>{{ pendientes[3] }}</td>
+                            <td>{{ pendientes[7] }}</td>
+                            <td>{{ pendientes[4] }}</td>
+                            <td>
+                                <form action="vacaciones/denegar" method="post" >
+                                    <input value = "{{ pendientes[0] }}" type="hidden" name="txtId" id="txtId"></input>
+                                    <div class="mb-3">
+                                    <select class="form-select form-select-sm" name="Valor" id="Valor">
+                                        <option selected>Select one</option>
+                                        <option value="Aprobado">Aprobado</option>
+                                        <option value="Rechazado">Rechazado</option>
+                                    </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-warning btn-sm">Guardar</button>
+                                </td>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+<br>
+<h4> Aprobadas / Rechazadas </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Solicitante</th>
+                            <th scope="col">Fecha Desde</th>
+                            <th scope="col">Fecha Hasta</th>
+                            <th scope="col">Fecha Solicitud</th>
+                            <th scope="col">Evaluador</th>
+                            <th scope="col">Estado</th>
+                            <th class="col">Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for no_pendientes in no_pendientes %}
+                        <tr class="">
+                            <td scope="row">{{ no_pendientes[0] }}</td>
+                            <td>{{ no_pendientes[6] }}</td>
+                            <td>{{ no_pendientes[2] }}</td>
+                            <td>{{ no_pendientes[3] }}</td>
+                            <td>{{ no_pendientes[4] }}</td>
+                            <td>{{ no_pendientes[8] }}</td>
+                            <td>{{ no_pendientes[5] }}</td>
+                            <td>
+                                <form action="vacaciones/volver" method="post" >
+                                <input value = "{{ no_pendientes[0] }}" type="hidden" name = "Idvacaciones" id = "Idvacaciones"></input>
+                                <input type="submit" class="btn btn-danger btn-sm" value="Volver a Pendiente"</input>
+                                </form>
+                            </td>      
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+{% include 'admin/footer.html' %}

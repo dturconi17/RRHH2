@@ -1,0 +1,171 @@
+{% include 'sitio/cabecera.html' %}
+
+{% if verificacion > 0 %}
+    
+    {% if mensaje %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                  <div class="alert alert-info" role = "alert">
+                  <label for="txtNuevaclave" class="form-label">{{ mensaje }}</label>
+                  <br>
+                  </div>
+                           </div>
+                          <div class="card-footer text-muted">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+              </div>
+    {% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Carga de Vacaciones
+                </div>
+                <div class="card-body">
+                    {% if mensaje %}
+                    <form action ="guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="desde" class="form-label">Fecha de Inicio:</label>
+                            <input type="date" min='2022-12-26' step = 7 class="form-control" name="desde" id="desde" aria-describedby="helpId" value = '26/12/2022' required>
+                            <span class="validity"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hasta" class="form-label">Fecha de Fin</label>
+                            <input type="date" min='2022-12-25' step = 7 class="form-control" name="hasta" id="hasta" aria-describedby="helpId" required>
+                            <span class="validity"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                    {% else %}
+                    <form action ="vacaciones/guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="desde" class="form-label">Fecha de Inicio:</label>
+                            <input type="date" min='2022-12-26' step = 7 class="form-control" name="desde" id="desde" aria-describedby="helpId" value = '26/12/2022' required>
+                            <span class="validity"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hasta" class="form-label">Fecha de Fin</label>
+                            <input type="date" min='2022-12-25' step = 7 class="form-control" name="hasta" id="hasta" aria-describedby="helpId" required>
+                            <span class="validity"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                    {% endif %}
+                </div>
+                <div class="card-footer text-muted">
+                    
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9">
+
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Fecha Desde</th>
+                            <th scope="col">Fecha Hasta</th>
+                            <th scope="col">Fecha Solicitud</th>
+                            <th scope="col">Acciones</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Dias Solicitados</th>
+                            <th scope="col">Periodo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in stock %}
+                        <tr class="">
+                            <td scope="row">{{ stock[0] }}</td>
+                            <td>{{ stock[2] }}</td>
+                            <td>{{ stock[3] }}</td>
+                            <td>{{ stock[4] }}</td>
+                            <td>
+                                {% if mensaje %}
+                                <form action="borrar" method="post" >
+                                <input value = "{{ stock[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <input value = "{{ stock[11] }}" type="hidden" name = "periodoId" id = "periodoId">
+                                <input value = "{{ stock[10] }}" type="hidden" name = "diassolicitadosId" id = "diassolicitadosId">
+                                <input type="{{ stock[8] }}" class="btn btn-danger btn-sm" value="{{ stock[9] }}"</input>
+                                </form>
+                                {% else %}
+                                <form action="vacaciones/borrar" method="post" >
+                                <input value = "{{ stock[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <input value = "{{ stock[11] }}" type="hidden" name = "periodoId" id = "periodoId">
+                                <input value = "{{ stock[10] }}" type="hidden" name = "diassolicitadosId" id = "diassolicitadosId">
+                                <input type="{{ stock[8] }}" class="btn btn-danger btn-sm" value="{{ stock[9] }}"</input>
+                                </form>
+                                {% endif %}
+                            </td> 
+                            <td>{{ stock[5] }}</td>
+                            <td>{{ stock[10] }}</td>
+                            <td>{{ stock[11] }}</td>
+                        </tr>
+                        <tr class="">
+                            <td colspan="7" size = "4">{{ stock[12] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+ 
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="col-md-9">
+
+    <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Fecha Desde</th>
+                    <th scope="col">Fecha Hasta</th>
+                    <th scope="col">Fecha Solicitud</th>
+                    <th scope="col">Acciones</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Dias Solicitados</th>
+                    <th scope="col">Periodo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stock %}
+                <tr class="">
+                    <td scope="row">{{ stock[0] }}</td>
+                    <td>{{ stock[2] }}</td>
+                    <td>{{ stock[3] }}</td>
+                    <td>{{ stock[4] }}</td>
+                    <td>
+                        <form action="vacaciones/borrar" method="post" >
+                        <input value = "{{ stock[0] }}" type="hidden" name = "txtId" id = "txtId">
+                        <input value = "{{ stock[11] }}" type="hidden" name = "periodoId" id = "periodoId">
+                        <input value = "{{ stock[10] }}" type="hidden" name = "diassolicitadosId" id = "diassolicitadosId">
+                        <input type="{{ stock[8] }}" class="btn btn-danger" value="{{ stock[9] }}"</input>
+                        </form>
+                    </td> 
+                    <td>{{ stock[5] }}</td>
+                    <td>{{ stock[10] }}</td>
+                    <td>{{ stock[11] }}</td>
+                </tr>
+                <tr class="">
+                    <td colspan="7" size = "4">{{ stock[12] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+
+</div>
+
+{% endif %}
+
+
+
+{% include 'sitio/footer.html' %}

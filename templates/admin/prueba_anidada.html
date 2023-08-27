@@ -1,0 +1,63 @@
+
+{% include 'admin/cabecera.html' %}
+<br>
+
+
+<div class="container">
+
+            <div class = "row">
+            <div class="col">
+                <label for="Gerencia" class="form-label">Gerencia:</label>
+                <select class="form-select form-select" name="Gerencia" id="Gerencia">
+                    
+                </select>
+            </div>
+            <div class="col">
+                <label for="Jefatura" class="form-label">Jefatura:</label>
+                <select class="form-select form-select" name="Jefatura" id="Jefatura">
+                </select>
+            </div>
+            <div class="col">
+                <label for="Nivel" class="form-label">Nivel:</label>
+                <select class="form-select form-select" name="Nivel" id="Nivel">
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class = "card-footer">
+                <button class = "btn btn-primary btn-flat btnTest">
+                    <i class="fas fa-plus"></i>Nuevo Registro</button>
+        </div>              
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous">
+
+</script>
+
+<script type="application/javascript">
+
+$(function (){
+        $('.btnTest').on('click', function() {
+            $.ajax({
+                url: 'ajax.py', 
+                type:'POST',
+                data:{id: 1},
+                dataType: 'html'
+            }).done(function(data){
+                console.log(data)
+            }).fail(function(data){
+                alert("error");
+            }).always(function(data){
+                alert("complete");
+            });
+
+        });
+    });
+
+</script>
+    
+
+
+{% include 'admin/footer.html' %}
