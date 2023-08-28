@@ -1,11 +1,11 @@
-CREATE TABLE IF NOT EXISTS `aprobaciones` 
+CREATE TABLE IF NOT EXISTS `sitio`.`aprobaciones` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `descripcion` varchar(100) NOT NULL COMMENT 'Descripcion', 
 `id_aprobacion` int(9) NOT NULL COMMENT 'Id de Aprobacion', 
 PRIMARY KEY (`id`) );
 
 
-CREATE TABLE IF NOT EXISTS `empleados` 
+CREATE TABLE IF NOT EXISTS `sitio`.`empleados` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria traida de usuario', 
 `id_empleado` varchar(100) NOT NULL COMMENT 'Id Empleado',
 `formacion` varchar(100) NOT NULL COMMENT 'formacion', 
@@ -23,21 +23,21 @@ CREATE TABLE IF NOT EXISTS `empleados`
 PRIMARY KEY (`id`) );
 
 
-CREATE TABLE IF NOT EXISTS `empresas` 
+CREATE TABLE IF NOT EXISTS `sitio`.`empresas` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `empresa` varchar(100) NOT NULL COMMENT 'Empresa', 
 `creado_por` varchar(50) NOT NULL COMMENT 'Usuario Creador', 
 `fecha` DATETIME NOT NULL COMMENT 'Fecha Creacion', 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `gerencias` 
+CREATE TABLE IF NOT EXISTS `sitio`.`gerencias` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `gerencia` varchar(100) NOT NULL COMMENT 'Gerencia', 
 `creado_por` varchar(50) NOT NULL COMMENT 'Usuario Creador', 
 `fecha` DATETIME NOT NULL COMMENT 'Fecha', 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `jefaturas` 
+CREATE TABLE IF NOT EXISTS `sitio`.`jefaturas` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `jefatura` varchar(50) NOT NULL COMMENT 'Jefatura', 
 `gerencia` varchar(50) NOT NULL COMMENT 'Gerencia', 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `jefaturas`
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `niveles` 
+CREATE TABLE IF NOT EXISTS `sitio`.`niveles` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `nivel` varchar(50) NOT NULL, 
 `aprobacion` int(1) NOT NULL, 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `niveles`
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `noticias` 
+CREATE TABLE IF NOT EXISTS `sitio`.`noticias` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `titulo` varchar(100) NOT NULL, 
 `noticia` varchar(100) NOT NULL, 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `noticias`
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `periodos_activos` 
+CREATE TABLE IF NOT EXISTS `sitio`.`periodos_activos` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `periodo` varchar(50) NOT NULL, 
 `tipo_licencia` varchar(100) NOT NULL, 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `periodos_activos`
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `periodo_nuevo` 
+CREATE TABLE IF NOT EXISTS `sitio`.`periodo_nuevo` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `nombre_usuario` varchar(50) NOT NULL COMMENT 'Usuario', 
 `periodo` varchar(100), 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `periodo_nuevo`
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `reglas_vacaciones` 
+CREATE TABLE IF NOT EXISTS `sitio`.`reglas_vacaciones` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `desde` int(2) NOT NULL COMMENT 'Usuario', 
 `hasta` int(2) NOT NULL COMMENT 'Clave', 
@@ -93,13 +93,13 @@ CREATE TABLE IF NOT EXISTS `reglas_vacaciones`
 `fecha` DATETIME NOT NULL COMMENT 'documento', 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `setup` 
+CREATE TABLE IF NOT EXISTS `sitio`.`setup` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `caracteristica` varchar(100) NOT NULL COMMENT 'Usuario', 
 `valor` varchar(100) NOT NULL COMMENT 'Clave', 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `stock_vacaciones` 
+CREATE TABLE IF NOT EXISTS `sitio`.`stock_vacaciones` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `id_empleado` varchar(50) NOT NULL COMMENT 'Usuario', 
 `periodo` varchar(50) NOT NULL COMMENT 'Clave', 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `stock_vacaciones`
 `fecha_modifica` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `usuario` 
+CREATE TABLE IF NOT EXISTS `sitio`.`usuario` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `nombre_usuario` varchar(50) NOT NULL, 
 `clave_usuario` varchar(100) NOT NULL, 
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `usuario`
 PRIMARY KEY (`id`) );
 
 
-CREATE TABLE IF NOT EXISTS `vacaciones` 
+CREATE TABLE IF NOT EXISTS `sitio`.`vacaciones` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `periodo` varchar(50) NOT NULL COMMENT 'Periodo',
 `desde` datetime NOT NULL, 
@@ -146,14 +146,14 @@ CREATE TABLE IF NOT EXISTS `vacaciones`
 PRIMARY KEY (`id`) );
 
 
-CREATE TABLE IF NOT EXISTS `logueo` 
+CREATE TABLE IF NOT EXISTS `sitio`.`logueo` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `fecha` datetime NOT NULL COMMENT 'Periodo',
 `sitio` varchar(100) NOT NULL,
 `usuario` varchar(50) NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `datos_contacto` 
+CREATE TABLE IF NOT EXISTS `sitio`.`datos_contacto` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `id_empleado` varchar(50) NOT NULL COMMENT 'Empresa', 
 `telefono_fijo` varchar(50) NOT NULL COMMENT 'Telefono Fijo',
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `datos_contacto`
 `fecha` DATETIME NOT NULL COMMENT 'Fecha Creacion', 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `saludos` 
+CREATE TABLE IF NOT EXISTS `sitio`.`saludos` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria',
 `id_reply` int(11) NULL COMMENT 'Clave reply', 
 `id_empleado` varchar(50) NOT NULL COMMENT 'Empleado que envia', 
@@ -175,21 +175,18 @@ CREATE TABLE IF NOT EXISTS `saludos`
 `visto` int NOT NULL,
 PRIMARY KEY (`id`) );
 
+INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `gerencia`, `jefatura`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('dturconi','Santi1703','Diego','Turconi','28032766','Hombre','dturconi@gmail.com',0,0,0,99,now(),'dturconi',now());
+INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `gerencia`, `jefatura`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('gfasanella','Santi1703','Gabriela','Fasanella','25477457','Mujer','gaby.fasane@gmail.com',0,0,0,99,now(),'dturconi',now());
 
+INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (99,'Admin',0,'dturconi',now());
+INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (103,'Gerente',5,'dturconi',now());
+INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (104,'Jefe',4,'dturconi',now());
+INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (108,'CEO',6,'dturconi',now());
 
-INSERT INTO `usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `gerencia`, `jefatura`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('dturconi','Santi1703','Diego','Turconi','28032766','Hombre','dturconi@gmail.com',0,0,0,99,now(),'dturconi',now())
-INSERT INTO `usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `gerencia`, `jefatura`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('gfasanella','Santi1703','Gabriela','Fasanella','25477457','Mujer','gaby.fasane@gmail.com',0,0,0,99,now(),'dturconi',now());
-
-INSERT INTO `niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (99,'Admin',0,'dturconi',now());
-INSERT INTO `niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (103,'Gerente',5,'dturconi',now());
-INSERT INTO `niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (104,'Jefe',4,'dturconi',now());
-INSERT INTO `niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (108,'CEO',6,'dturconi',now());
-
-insert into aprobaciones values (1, 'Nivel 0 - No Aprueba', 1);
-insert into aprobaciones values (2, 'Nivel 1 - Aprueba Nivel 0', 2);
-insert into aprobaciones values (3, 'Nivel 2 - Aprueba Nivel 0 y 1', 3);
-insert into aprobaciones values (4, 'Nivel 3 - Aprueba Nivel 0, 1 y 2', 4);
-insert into aprobaciones values (5, 'Nivel 4 - Aprueba Nivel 0, 1, 2 y 3', 5);
-insert into aprobaciones values (6, 'Nivel 5 - Aprueba Todo', 6);
-
+insert into `sitio`.aprobaciones values (1, 'Nivel 0 - No Aprueba', 1);
+insert into `sitio`.aprobaciones values (2, 'Nivel 1 - Aprueba Nivel 0', 2);
+insert into `sitio`.aprobaciones values (3, 'Nivel 2 - Aprueba Nivel 0 y 1', 3);
+insert into `sitio`.aprobaciones values (4, 'Nivel 3 - Aprueba Nivel 0, 1 y 2', 4);
+insert into `sitio`.aprobaciones values (5, 'Nivel 4 - Aprueba Nivel 0, 1, 2 y 3', 5);
+insert into `sitio`.aprobaciones values (6, 'Nivel 5 - Aprueba Todo', 6);
 
