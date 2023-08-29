@@ -2,61 +2,54 @@
 
 <div class="container">
     <div class="row">
-      <div class="col col-lg-2">
-        Acciones
-      </div>
-      <div class="col-md-auto">
-        Variable width content
-      </div>
-      <div class="col">
-        3 of 3
-      </div>
-    </div>
-  </div>
-
-
-{% if cnt_datos == 0 %}
-<div class="container">
-    <div class="col-md-3">
-        <div class="toast-body">
-            ¡Hola {{ session["nombre_usr"] }}!. Debes cargar tu perfil como primer paso.
-            <div class="mt-2 pt-2 border-top">
-                <button type="button" class="btn btn-primary btn-sm"><a href="/masinfousuario2" style="color: white;">Ir Ahi!</a></button>
-            </div>
-        </div>
-        <br>
-    </div>
-{% endif %}
-{% if cnt_contacto == 0 %}
-    <div class="col-md-3">
-        <div class="toast-body">
-            ¡Hola {{ session["nombre_usr"] }}!. Carga tus datos de contacto para que otros companeros se comuniquen con vos.
-            <div class="mt-2 pt-2 border-top">
-                <button type="button" class="btn btn-primary btn-sm"><a href="/guia_telefonica" style="color: white;">Ir Ahi!</a></button>
-            </div>
-        </div>
-        <br>
-    </div>
-{% endif %}
-
-
-    <div class="row">
-        {% for noticias in noticias %}
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" width = "200" height = "180" src="/img/{{ noticias[5] }}" alt="Title">
-                <div class="card-body">
-                    <h4 class="card-title">{{ noticias[1] }}</h4>
-                    <p class="card-text">{{ noticias[3] }}</p>
-                    <form action ="sitio/abrir_url" method="post" enctype = "multipart/form-data">
-                        <input value = "{{ noticias[4] }}" type="hidden" name = "site" id = "site"></input> 
-                        <input type="submit" class="btn btn-primary">
-                    </form>
+        <div class="col col-lg-4">
+        {% if cnt_datos == 0 %}
+            <div class="container">
+                <div class="col-md">
+                    <div class="toast-body">
+                    ¡Hola {{ session["nombre_usr"] }}!. Debes cargar tu perfil como primer paso.
+                        <div class="mt-2 pt-2 border-top">
+                        <button type="button" class="btn btn-primary btn-sm"><a href="/masinfousuario2" style="color: white;">Ir Ahi!</a></button>
+                    </div>
                 </div>
+                <br>
             </div>
-            <br>
+        {% endif %}
+        {% if cnt_contacto == 0 %}
+            <div class="col-md">
+                <div class="toast-body">
+                    ¡Hola {{ session["nombre_usr"] }}!. Carga tus datos de contacto para que otros companeros se comuniquen con vos.
+                    <div class="mt-2 pt-2 border-top">
+                        <button type="button" class="btn btn-primary btn-sm"><a href="/guia_telefonica" style="color: white;">Ir Ahi!</a></button>
+                    </div>
+                </div>
+                <br>
+            </div>
+        {% endif %}
         </div>
-        {% endfor %}
     </div>
+    <div class="col-md-4">
+        <div class="row">
+            {% for noticias in noticias %}
+            <div class="col-md">
+                <div class="card">
+                    <img class="card-img-top" width = "200" height = "180" src="/img/{{ noticias[5] }}" alt="Title">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ noticias[1] }}</h4>
+                        <p class="card-text">{{ noticias[3] }}</p>
+                        <form action ="sitio/abrir_url" method="post" enctype = "multipart/form-data">
+                            <input value = "{{ noticias[4] }}" type="hidden" name = "site" id = "site"></input> 
+                            <input type="submit" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
 
 {% include 'sitio/footer.html' %}
