@@ -18,61 +18,59 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#"><img src="/img/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top"></a>
+    <a class="navbar-brand" href="#">
+        <img src="/img/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+    </a>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/inicio">Inicio</a>
             </li>
-        
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Vacaciones
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% if session["aprobacion"] == 0 and session["licencia_vacaciones"] > 0 %}
-                    <li><a class="dropdown-item" href="/vacaciones">Mis Pedidos</a></li>
-                    <li><a class="dropdown-item" href="/stockvacaciones">Stock</a></li>
-                {% elif session["aprobacion"] > 0 and session["licencia_vacaciones"] > 0 %}
-                    <li><a class="dropdown-item" href="/vacaciones">Mis Pedidos</a></li>
-                    <li><a class="dropdown-item" href="/stockvacaciones">Stock</a></li>
-                    <li><a class="dropdown-item" href="/listar_cronograma">Listar Cronograma</a></li>
-                    <li><a class="dropdown-item" href="/vacaciones_acciones">Aprobar</a></li>
-                {% else %}       
-                    <li>&nbsp;No hay items disponibles</a></li>
-                {% endif %}   
-                
-            </ul>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if session["aprobacion"] == 0 and session["licencia_vacaciones"] > 0 %}
+                        <li><a class="dropdown-item" href="/vacaciones">Mis Pedidos</a></li>
+                        <li><a class="dropdown-item" href="/stockvacaciones">Stock</a></li>
+                    {% elif session["aprobacion"] > 0 and session["licencia_vacaciones"] > 0 %}
+                        <li><a class="dropdown-item" href="/vacaciones">Mis Pedidos</a></li>
+                        <li><a class="dropdown-item" href="/stockvacaciones">Stock</a></li>
+                        <li><a class="dropdown-item" href="/listar_cronograma">Listar Cronograma</a></li>
+                        <li><a class="dropdown-item" href="/vacaciones_acciones">Aprobar</a></li>
+                    {% else %}       
+                        <li>&nbsp;No hay items disponibles</a></li>
+                    {% endif %}   
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Mi Perfil
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/masinfousuario2">Actualizar Mi Perfil</a></li>
-                <li><a class="dropdown-item" href="/guia_telefonica">Datos de Contacto</a></li>
-                <li><a class="dropdown-item" href="/cambio_clave">Cambio de Clave</a></li>
-            </ul>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Utilidades
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/telefonos">Guia Telefonica</a></li>
-                <li><a class="dropdown-item" href="/cumpleanos">Cumpleaños</a></li>
-                <li><a class="dropdown-item" href="/mensajes">Mensajes {% if session["nuevos_saludos"] > 0: %}
-                                                                            ({{ session["nuevos_saludos"] }})
-                                                                        {% endif %}
-                </a></li>
-            </ul>
-        </li>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/masinfousuario2">Actualizar Mi Perfil</a></li>
+                    <li><a class="dropdown-item" href="/guia_telefonica">Datos de Contacto</a></li>
+                    <li><a class="dropdown-item" href="/cambio_clave">Cambio de Clave</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Utilidades
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/telefonos">Guia Telefonica</a></li>
+                    <li><a class="dropdown-item" href="/cumpleanos">Cumpleaños</a></li>
+                    <li><a class="dropdown-item" href="/mensajes">Mensajes {% if session["nuevos_saludos"] > 0: %}
+                                                                                ({{ session["nuevos_saludos"] }})
+                                                                            {% endif %}
+                    </a></li>
+                </ul>
+            </li>
         </ul>
-
         <form class="form-inline my-2 my-lg-0">
             <a class="btn btn-outline-warning my-3 my-sm-0" href="/">Cerrar Sesion {{ session["nombre_usr"] }}</a>
         </form>
-    
     </div>
 </nav>
 <br>

@@ -2,52 +2,51 @@
 
 <div class="container">
     <div class="row">
-        <div class="col col-lg-4">
-        {% if cnt_datos == 0 %}
-            <div class="container">
-                <div class="col-md">
-                    <div class="toast-body">
-                    ¡Hola {{ session["nombre_usr"] }}!. Debes cargar tu perfil como primer paso.
-                        <div class="mt-2 pt-2 border-top">
-                        <button type="button" class="btn btn-primary btn-sm"><a href="/masinfousuario2" style="color: white;">Ir Ahi!</a></button>
+    {% if cnt_datos == 0 or cnt_contacto == 0 %}
+        <div class="col-sm-4">
+            {% if cnt_datos == 0 %}
+                <div class="col">
+                    <div class="card" >
+                        <div class="card-body">
+                            <h5>¡Hola {{ session["nombre_usr"] }}!</h5> 
+                            <p class="card-text">Debes cargar tu perfil como primer paso.</p>
+                            <a href="/masinfousuario2" class="btn btn-primary">Ir Ahi!</a>
+                        </div>
                     </div>
                 </div>
                 <br>
-            </div>
-        {% endif %}
-        {% if cnt_contacto == 0 %}
-            <div class="col-md">
-                <div class="toast-body">
-                    ¡Hola {{ session["nombre_usr"] }}!. Carga tus datos de contacto para que otros companeros se comuniquen con vos.
-                    <div class="mt-2 pt-2 border-top">
-                        <button type="button" class="btn btn-primary btn-sm"><a href="/guia_telefonica" style="color: white;">Ir Ahi!</a></button>
+            {% endif %}
+            {% if cnt_contacto == 0 %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>¡Hola {{ session["nombre_usr"] }}!</h5> 
+                            <p class="card-text">Carga tus datos de contacto para que otros companeros se comuniquen con vos.</p>
+                            <a href="/guia_telefonica" class="btn btn-primary">Ir Ahi!</a>
+                        </div>
                     </div>
                 </div>
                 <br>
-            </div>
-        {% endif %}
-        </div>
+            {% endif %}
     </div>
-    <div class="col-md-4">
-        <div class="row">
-            {% for noticias in noticias %}
-            <div class="col-md">
-                <div class="card">
-                    <img class="card-img-top" width = "200" height = "180" src="/img/{{ noticias[5] }}" alt="Title">
+    {% endif %}
+    {% for noticias in noticias %}
+    <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img-top" width = "200" height = "180" src="/img/{{ noticias[5] }}" alt="Title">
                     <div class="card-body">
                         <h4 class="card-title">{{ noticias[1] }}</h4>
                         <p class="card-text">{{ noticias[3] }}</p>
                         <form action ="sitio/abrir_url" method="post" enctype = "multipart/form-data">
                             <input value = "{{ noticias[4] }}" type="hidden" name = "site" id = "site"></input> 
-                            <input type="submit" class="btn btn-primary">
+                            <input type="submit" class="btn btn-primary"></input>
                         </form>
                     </div>
-                </div>
-                <br>
             </div>
-            {% endfor %}
-        </div>
+        <br>
     </div>
+    {% endfor %}
+    
 </div>
 
 
