@@ -16,6 +16,8 @@ from calculo_vacaciones import *
 from telefonos import *
 from cumpleanos import *
 import webbrowser
+from creador_empresa import *
+from creador_niveles import *
 
 @app.route("/css/<archivocss>")
 def css_link(archivocss):
@@ -1051,84 +1053,6 @@ def admin_jefaturas_borrar():
     return redirect('/jefaturas')
 
 
-##########################################
-############ Niveles ##############
-##########################################
-@app.route('/niveles')
-def niveles():
-
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'listar_niveles',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
-
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("Select *, (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por), (select descripcion from aprobaciones where aprobacion = id_aprobacion) from niveles")
-    niveles=cursor.fetchall()
-    conexion.commit
-   
-
-    return render_template("/admin/niveles.html", niveles = niveles)
-
-
-@app.route('/admin/niveles/guardar', methods=['POST'])
-def admin_niveles_guardar():
-
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'guardar_niveles',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
-
-
-    _niveles = request.form['txtNiveles']
-    _aprobaciones = request.form['txtAprobacion']
-    
-    tiempo = datetime.now()
-    
-    sql = "INSERT INTO `niveles` (nivel, creado_por, fecha, aprobacion) VALUES (%s, %s, %s,%s);"
-    datos=(_niveles, session["usuario"], tiempo, _aprobaciones)
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql,datos)
-    conexion.commit()
-
-    return redirect('/niveles')
-
-@app.route('/admin/niveles/borrar', methods=['POST'])
-def admin_niveles_borrar():
-    
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'borrar_niveles',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
-
-    _id = request.form['txtId']
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("delete from niveles WHERE id=%s", (_id))
-    libros=cursor.fetchall()
-    conexion.commit()
-    return redirect('/niveles')
-
-
 @app.route('/organigrama')
 def organigrama():
 
@@ -1150,79 +1074,6 @@ def organigrama():
     conexion.commit
 
     return render_template("/admin/organigrama.html", organigrama = organigrama)
-
-
-
-@app.route('/empresa')
-def empresa():
-
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'listar_empresas',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
-
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("Select *, (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por) from empresas")
-    empresas=cursor.fetchall()
-    conexion.commit
-   
-    return render_template("/admin/empresas.html", empresas=empresas)
-
-
-@app.route('/admin/empresa/guardar', methods=['POST'])
-def admin_empresas_guardar():
-
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'guardar_empresas',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
-
-    _empresa = request.form['txtEmpresa']
-       
-    tiempo = datetime.now()
-    
-    sql = "INSERT INTO `empresas` (empresa, creado_por, fecha) VALUES (%s, %s, %s);"
-    datos=(_empresa, session["usuario"], tiempo)
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql,datos)
-    conexion.commit()
-
-    return redirect('/empresa')
-
-@app.route('/admin/empresa/borrar', methods=['POST'])
-def admin_empresa_borrar():
-    
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'borrar_empresas',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
-
-    _id = request.form['txtId']
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("delete from empresas WHERE id=%s", (_id))
-    libros=cursor.fetchall()
-    conexion.commit()
-    return redirect('/empresa')
 
 @app.route('/sitio/abrir_url', methods=['POST'])
 def abrir_url():

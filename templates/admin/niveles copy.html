@@ -11,16 +11,23 @@
                 <div class="card-body">
                     <form action ="/admin/niveles/guardar" method="post" enctype = "multipart/form-data">
                         <div class="mb-3">
-                            <label for="txtAprobacion" class="form-label">Crear Nivel:</label>
-                                <select class="form-select form-select-sm" id="txtAprobacion" name="txtAprobacion" required>
-                                    <option value = "" selected>Escoja Nivel</option>
-                                    <option value="1">Nivel A</option>
-                                    <option value="2">Nivel B</option>
-                                    <option value="3">Nivel C</option>
-                                </select>
+                            <label for="txtNiveles" class="form-label">Seniority</label>
+                            <input type="text" class="form-control" name="txtNiveles" id="txtNiveles" aria-describedby="helpId" placeholder = "Escriba el Seniority">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtAprobacion" class="form-label">Nivel de Aprobacion:</label>
+                            <select class="form-select form-select-sm" name="txtAprobacion" id="txtAprobacion" required>
+                                <option value = "" selected>Escoja nivel de aprobacion</option>
+                                <option value=1>Nivel 0 - No aprueba</option>
+                                <option value=2>Nivel 1 - Aprueba Nivel 0</option>
+                                <option value=3>Nivel 2 - Aprueba Nivel 0 y 1</option>
+                                <option value=4>Nivel 3 - Aprueba Nivel 0, 1 y 2</option>
+                                <option value=5>Nivel 4 - Aprueba Nivel 0, 1, 2 y 3</option>
+                                <option value=6>Nivel 5 - Aprueba Todo</option>
+                            </select>
                         </div>   
                         
-                        <button type="submit" class="btn btn-primary" onclick="getSelectedOption()">Agregar</button>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
                     </form>
                 </div>
                 <div class="card-footer text-muted">
@@ -30,32 +37,30 @@
             
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-6">
+        <div class="col-md-8">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Nivel de Creado</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Seniority</th>
+                            <th scope="col">Nivel de Aprobacion</th>
                             <th scope="col">Creado por</th>
                             <th scope="col">Fecha</th>
-                            <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for niveles in niveles %}
                         <tr class="">
-                            <td scope="row">{{ niveles[1] }}</td>
+                            <td scope="row">{{ niveles[0] }}</td>
+                            <td>{{ niveles[1] }}</td>
+                            <td>{{ niveles[6] }}</td>
+                            <td>{{ niveles[5] }}</td>
                             <td>{{ niveles[4] }}</td>
-                            <td>{{ niveles[3] }}</td>
                             <td>
                                 <form action="/admin/niveles/borrar" method="post" >
                                 <input value = "{{ niveles[0] }}" type="hidden" name = "txtId" id = "txtId">
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/admin/niveles/editar" method="post" >
-                                    <input value = "{{ niveles[0] }}" type="hidden" name = "txtId" id = "txtId">
-                                    <button type="submit" class="btn btn-warning btn-sm">Editar</button>
                                 </form>
                             </td>
                         </tr>
@@ -69,5 +74,6 @@
         
     </div>
 </div>
+
 
 {% include 'admin/footer.html' %}

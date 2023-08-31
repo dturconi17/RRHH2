@@ -1,0 +1,121 @@
+{% include 'admin/cabecera.html' %}
+
+<script type="text/javascript">
+    function numbersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // numbers
+    else if ((("0123456789").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    function lettersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // letters
+    else if ((("qwertyuiopasdfghjkl�zxcvbnm������QWERTYUIOPASDFGHJKL�ZXCVBNM������.,'�` ").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    
+    
+    </script>
+    
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de las Empresas
+                </div>
+                <div class="card-body">
+                    {% for empresas in empresas %}
+                    <form action ="/admin/empresa/guardar_editar" method="post" enctype = "multipart/form-data">
+                        <input value = "{{ empresas[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
+                        <div class="mb-3">
+                            <label for="txtEmpresa" class="form-label">Empresa</label>
+                            <input type="text" class="form-control" name="txtEmpresa" id="txtEmpresa" aria-describedby="helpId" value = "{{ empresas[1] }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtCuit" class="form-label">CUIT</label>
+                            <input type="text" class="form-control" name="txtCuit" id="txtCuit" aria-describedby="helpId" value = {{ empresas[4] }} required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtDomicilio" class="form-label">Domicilio</label>
+                            <input type="text" class="form-control" name="txtDomicilio" id="txtDomicilio" aria-describedby="helpId" value = "{{ empresas[5] }}" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
+                        <a class="btn btn-info" style="color: white;" href="/empresa" onclick="return confirmChanges()">Descartar</a>
+                    </form>
+                    {% endfor %}
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+        
+    </div>
+</div>
+
+<script>
+   function confirmChanges() {
+       return confirm("¿Estás seguro de que quieres realizar los cambios?");
+   }
+</script>
+
+{% include 'admin/footer.html' %}
