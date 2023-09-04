@@ -34,22 +34,43 @@ PRIMARY KEY (`id`) );
 
 CREATE TABLE IF NOT EXISTS `sitio`.`gerencias` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
-`gerencia` varchar(100) NOT NULL COMMENT 'Gerencia', 
+`jefatura` varchar(50) NOT NULL COMMENT 'Jefatura', 
+`aprobacion` int(11) NOT NULL COMMENT 'Aprobacion',
 `creado_por` varchar(50) NOT NULL COMMENT 'Usuario Creador', 
-`fecha` DATETIME NOT NULL COMMENT 'Fecha', 
+`fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
 CREATE TABLE IF NOT EXISTS `sitio`.`jefaturas` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `jefatura` varchar(50) NOT NULL COMMENT 'Jefatura', 
-`gerencia` varchar(50) NOT NULL COMMENT 'Gerencia', 
+`aprobacion` int(11) NOT NULL COMMENT 'Aprobacion',
 `creado_por` varchar(50) NOT NULL COMMENT 'Usuario Creador', 
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
+CREATE TABLE IF NOT EXISTS `sitio`.`area` 
+( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
+`area` varchar(50) NOT NULL COMMENT 'Jefatura', 
+`aprobacion` int(11) NOT NULL COMMENT 'Aprobacion',
+`creado_por` varchar(50) NOT NULL COMMENT 'Usuario Creador', 
+`fecha` DATETIME NOT NULL, 
+PRIMARY KEY (`id`) );
+
+insert into sitio.area (area, id_dependencia, id_estructura, creado_por, fecha) values ('Gerencia General',1,1,'dturconi',now());
+
+
+
 CREATE TABLE IF NOT EXISTS `sitio`.`niveles` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `nivel` varchar(50) NOT NULL, 
+`aprobacion` int(1) NOT NULL, 
+`creado_por` varchar(50) NOT NULL, 
+`fecha` DATETIME NOT NULL, 
+PRIMARY KEY (`id`) );
+
+CREATE TABLE IF NOT EXISTS `sitio`.`estructuras` 
+( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
+`estructura` varchar(50) NOT NULL, 
 `aprobacion` int(1) NOT NULL, 
 `creado_por` varchar(50) NOT NULL, 
 `fecha` DATETIME NOT NULL, 

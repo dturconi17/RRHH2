@@ -1,0 +1,99 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos del Area y su Dependencia
+                </div>
+                <div class="card-body">
+                    <form action ="/admin/dependencias/guardar" method="post" enctype = "multipart/form-data">
+                        
+                        <div class="mb-3">
+                            <label for="txtArea" class="form-label">Area a Crear</label>
+                            <input type="text" class="form-control" name="txtArea" id="txtArea" aria-describedby="helpId" placeholder = "Escriba nombre del Area" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtEstructura" class="form-label">Que tipo de estructura es?:</label>
+                            <select class="form-select form-control" name="txtEstructura" id="txtEstructura" required>
+                                <option value = "" selected>Tipo Estructura</option>
+                                {% for atribuciones in atribuciones %}
+                                <option value="{{ atribuciones[0] }}">{{ atribuciones[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="txtDepende" class="form-label">De quien depende?:</label>
+                            <select class="form-select form-control" name="txtDepende" id="txtDepende" required>
+                                <option value = "" selected>Dependencia</option>
+                                {% for depende in depende %}
+                                <option value="{{ depende[0] }}">{{ depende[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                       
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre Area</th>
+                            <th scope="col">Estructura</th>
+                            <th scope="col">Dependencia</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dependencias in dependencias %}
+                        <tr class="">
+                            <td scope="row">{{ dependencias[0] }}</td>
+                            <td>{{ dependencias[1] }}</td>
+                            <td>{{ dependencias[2] }}</td>
+                            <td>{{ dependencias[3] }}</td>
+                            <td>{{ dependencias[4] }}</td>
+                            <td>{{ dependencias[5] }}</td>
+                            
+                            {% if dependencias[0] > 1 %}
+                            <td>
+                                <form action="/admin/dependencias/borrar" method="post" >
+                                <input value = "{{ dependencias[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/admin/dependencias/editar" method="post" >
+                                    <input value = "{{ dependencias[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                    <button type="submit" class="btn btn-warning btn-sm">Editar</button>
+                                </form>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% include 'admin/footer.html' %}

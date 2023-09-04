@@ -1,0 +1,52 @@
+{% include 'admin/cabecera.html' %}
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de la Jefatura
+                </div>
+                <div class="card-body">
+                    {% for jefaturas in jefaturas %}
+                    <form action ="/admin/jefaturas/guardar_editar" method="post" enctype = "multipart/form-data">
+                        <input value = "{{ jefaturas[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
+                        <div class="mb-3">
+                            <label for="txtJefatura" class="form-label">Nombre Jefatura</label>
+                            <input type="text" class="form-control" name="txtJefatura" id="txtJefatura" aria-describedby="helpId" value = "{{ jefaturas[1] }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtAtribucion" class="form-label">Atribucion de la Jefatura:</label>
+                            <select class="form-select form-select-sm" name="txtAtribucion" id="txtAtribucion" required>
+                                <option value = "{{ jefaturas[4] }}" selected>{{ jefaturas[3] }}</option>
+                                {% for atribuciones in atribuciones %}
+                                <option value="{{ atribuciones[0] }}">{{ atribuciones[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
+                        <a class="btn btn-info" style="color: white;" href="/jefaturas" onclick="return confirmChanges()">Descartar</a>
+                    </form>
+                    {% endfor %}
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+        
+    </div>
+</div>
+
+<script>
+   function confirmChanges() {
+       return confirm("¿Estás seguro de que quieres realizar los cambios?");
+   }
+</script>
+
+{% include 'admin/footer.html' %}

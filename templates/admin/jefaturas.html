@@ -12,19 +12,19 @@
                     <form action ="/admin/jefaturas/guardar" method="post" enctype = "multipart/form-data">
                         
                         <div class="mb-3">
-                            <label for="txtJefatura" class="form-label">Gerencia a la que pertenece:</label>
-                            <select class="form-select form-select-sm" name="txtGerencia" id="txtGerencia" required>
-                                <option value = "" selected>Escoja una Gerencia</option>
-                                {% for gerencias in gerencias %}
-                                <option value="{{ gerencias[0] }}">{{ gerencias[0] }}</option>
+                            <label for="txtJefatura" class="form-label">Jefatura</label>
+                            <input type="text" class="form-control" name="txtJefatura" id="txtJefatura" aria-describedby="helpId" placeholder = "Escriba la Jefatura" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtAtribucion" class="form-label">Atribucion de la Jefatura:</label>
+                            <select class="form-select form-select-sm" name="txtAtribucion" id="txtAtribucion" required>
+                                <option value = "" selected>Atribuciones de la Jefatura</option>
+                                {% for atribuciones in atribuciones %}
+                                <option value="{{ atribuciones[0] }}">{{ atribuciones[1] }}</option>
                                 {% endfor %}
                             </select>
                         </div>
-                        <br>
-                        <div class="mb-3">
-                            <label for="txtJefatura" class="form-label">Jefatura</label>
-                            <input type="text" class="form-control" name="txtJefatura" id="txtJefatura" aria-describedby="helpId" placeholder = "Escriba la Jefatura">
-                        </div>
+                        
                        
                         <button type="submit" class="btn btn-primary">Agregar</button>
                     </form>
@@ -35,17 +35,16 @@
             </div>
             
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-7">
+        <div class="col-md-8">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Jefatura</th>
-                            <th scope="col">Gerencia</th>
+                            <th scope="col">Atribucion</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Creado por</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
                             
                         </tr>
                     </thead>
@@ -54,13 +53,19 @@
                         <tr class="">
                             <td scope="row">{{ jefaturas[0] }}</td>
                             <td>{{ jefaturas[1] }}</td>
-                            <td>{{ jefaturas[2] }}</td>
+                            <td>{{ jefaturas[3] }}</td>
                             <td>{{ jefaturas[4] }}</td>
-                            <td>{{ jefaturas[5] }}</td>
+                            <td>{{ jefaturas[2] }}</td>
                             <td>
                                 <form action="/admin/jefaturas/borrar" method="post" >
                                 <input value = "{{ jefaturas[0] }}" type="hidden" name = "txtId" id = "txtId">
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/admin/jefaturas/editar" method="post" >
+                                    <input value = "{{ jefaturas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                    <button type="submit" class="btn btn-warning btn-sm">Editar</button>
                                 </form>
                             </td>
                         </tr>

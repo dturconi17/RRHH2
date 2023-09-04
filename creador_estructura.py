@@ -11,60 +11,59 @@ from django.db import models
 from db import *
 import logs
 
+@app.route('/estructura')
+def estructura():
 
-@app.route('/niveles')
-def niveles():
-
-    logs.logs1('Creador de Jerarquias')
+    logs.logs1('Creador de Estructura')
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("""Select id, nivel, '',  
+    cursor.execute("""Select id, estructura, '',  
                    CONCAT(DAY(fecha), '/',MONTH(fecha), '/',YEAR(fecha)), 
                    (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por)
-                   from niveles""")
-    niveles=cursor.fetchall()
+                   from estructuras""")
+    estructura=cursor.fetchall()
     conexion.commit
    
-    return render_template("/admin/niveles.html", niveles = niveles)
+    return render_template("/admin/estructura.html", estructura = estructura)
 
 
-@app.route('/admin/niveles/guardar', methods=['POST'])
-def admin_niveles_guardar():
+@app.route('/admin/estructura/guardar', methods=['POST'])
+def admin_estructura_guardar():
 
-    logs.logs1('Guardar Niveles')
+    logs.logs1('Guardar estructura')
 
     _aprobaciones = request.form['txtAprobacion']
 
     tiempo = datetime.now()
     
-    sql = "INSERT INTO `niveles` (nivel, creado_por, fecha, aprobacion) VALUES (%s, %s, %s, 15);"
+    sql = "INSERT INTO `estructuras` (estructura, creado_por, fecha, aprobacion) VALUES (%s, %s, %s, 15);"
     datos=(_aprobaciones, session["usuario"], tiempo)
     conexion= mysql.connect()
     cursor = conexion.cursor()
     cursor.execute(sql,datos)
     conexion.commit()
 
-    return redirect('/niveles')
+    return redirect('/estructura')
 
-@app.route('/admin/niveles/borrar', methods=['POST'])
-def admin_niveles_borrar():
+@app.route('/admin/estructura/borrar', methods=['POST'])
+def admin_estructura_borrar():
     
-    logs.logs1('Borrar Niveles')
+    logs.logs1('Borrar estructura')
 
     _id = request.form['txtId']
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("delete from niveles WHERE id=%s", (_id))
+    cursor.execute("delete from estructuras WHERE id=%s", (_id))
     libros=cursor.fetchall()
     conexion.commit()
-    return redirect('/niveles')
+    return redirect('/estructura')
 
-@app.route('/admin/niveles/guardar_editar', methods=['POST'])
-def admin_niveles_guardar_editar():
+@app.route('/admin/estructura/guardar_editar', methods=['POST'])
+def admin_estructura_guardar_editar():
 
-    logs.logs1('Guardar Editar Niveles')
+    logs.logs1('Guardar Editar estructura')
 
     _id = request.form['txtId']
     _jerarquia = request.form['txtJerarquia']
@@ -72,29 +71,29 @@ def admin_niveles_guardar_editar():
 
     tiempo = datetime.now()
     
-    sql = "update `niveles` set nivel = %s, creado_por = %s, fecha = %s where id = %s;"
+    sql = "update `estructuras` set estructura = %s, creado_por = %s, fecha = %s where id = %s;"
     datos=(_jerarquia, session["usuario"], tiempo, _id)
     conexion= mysql.connect()
     cursor = conexion.cursor()
     cursor.execute(sql,datos)
     conexion.commit()
 
-    return redirect('/niveles')
+    return redirect('/estructura')
 
-@app.route('/admin/niveles/editar', methods=['POST'])
-def admin_niveles_editar():
+@app.route('/admin/estructura/editar', methods=['POST'])
+def admin_estructura_editar():
 
-    logs.logs1('Editar Empresa')
+    logs.logs1('Editar estructura')
 
     _id = request.form['txtId']
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("""Select id, nivel, '',  
+    cursor.execute("""Select id, estructura, '',  
                    CONCAT(DAY(fecha), '/',MONTH(fecha), '/',YEAR(fecha)), 
                    (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por)
-                   from niveles where id = %s;""", (_id))
-    niveles=cursor.fetchall()
+                   from estructuras where id = %s;""", (_id))
+    estructura=cursor.fetchall()
     conexion.commit
    
-    return render_template("/admin/niveles_editar.html", niveles = niveles)
+    return render_template("/admin/estructura_editar.html", estructura = estructura)

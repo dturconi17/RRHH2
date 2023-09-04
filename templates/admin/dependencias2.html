@@ -1,0 +1,38 @@
+{% include 'admin/cabecera.html' %}
+<br>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtener Arreglo de Valores</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Valores:</h1>
+    <select id="valores">
+        <!-- Los valores se agregarán aquí -->
+    </select>
+
+    <button onclick="obtenerArregloValores()">Obtener Valores</button>
+
+    <script>
+        function obtenerArregloValores() {
+            $.ajax({
+                type: "GET",
+                url: "/obtener_arreglo_valores",
+                success: function(data) {
+                    // Actualiza los valores en la página
+                    const listaValores = data.valores.map(valor => `<option>${valor}</option>`).join('');
+                    $("#valores").html(listaValores);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+{% include 'admin/footer.html' %}

@@ -1,0 +1,43 @@
+{% include 'admin/cabecera.html' %}
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de la Estructura
+                </div>
+                <div class="card-body">
+                    {% for estructura in estructura %}
+                    <form action ="/admin/estructura/guardar_editar" method="post" enctype = "multipart/form-data">
+                        <input value = "{{ estructura[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
+                        <div class="mb-3">
+                            <label for="txtJerarquia" class="form-label">Estructura</label>
+                            <input type="text" class="form-control" name="txtJerarquia" id="txtJerarquia" aria-describedby="helpId" value = "{{ estructura[1] }}" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
+                        <a class="btn btn-info" style="color: white;" href="/estructura" onclick="return confirmChanges()">Descartar</a>
+                    </form>
+                    {% endfor %}
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+        
+    </div>
+</div>
+
+<script>
+   function confirmChanges() {
+       return confirm("¿Estás seguro de que quieres realizar los cambios?");
+   }
+</script>
+
+{% include 'admin/footer.html' %}

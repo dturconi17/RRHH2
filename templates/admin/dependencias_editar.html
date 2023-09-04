@@ -1,0 +1,128 @@
+{% include 'admin/cabecera.html' %}
+
+<script type="text/javascript">
+    function numbersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // numbers
+    else if ((("0123456789").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    function lettersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // letters
+    else if ((("qwertyuiopasdfghjkl�zxcvbnm������QWERTYUIOPASDFGHJKL�ZXCVBNM������.,'�` ").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    
+    
+    </script>
+    
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Datos del Area y su Dependencia
+                </div>
+                <div class="card-body">
+                    {% for dependencias in dependencias %}
+                    <form action ="/admin/dependencias/guardar_editar" method="post" enctype = "multipart/form-data">
+                        <input value = "{{ dependencias[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
+                        <div class="mb-3">
+                            <label for="txtArea" class="form-label">Area a Crear</label>
+                            <input type="text" class="form-control" name="txtArea" id="txtArea" value = {{ dependencias[1] }} aria-describedby="helpId" placeholder = "Escriba nombre del Area" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtEstructura" class="form-label">Que tipo de estructura es?:</label>
+                            <select class="form-select form-control" name="txtEstructura" id="txtEstructura" required>
+                                <option value = "{{ dependencias [7]}}" selected>{{ dependencias [2]}}</option>
+                                {% for atribuciones in atribuciones %}
+                                <option value="{{ atribuciones[0] }}">{{ atribuciones[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtDepende" class="form-label">De quien depende?:</label>
+                            <select class="form-select form-control" name="txtDepende" id="txtDepende" required>
+                                <option value = "{{ dependencias [8]}}" selected>{{ dependencias [3]}}</option>
+                                {% for depende in depende %}
+                                <option value="{{ depende[0] }}">{{ depende[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
+                        <a class="btn btn-info" style="color: white;" href="/dependencias" onclick="return confirmChanges()">Descartar</a>
+                    </form>
+                    {% endfor %}
+                </div>
+                <div class="card-footer text-muted">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+
+<script>
+   function confirmChanges() {
+       return confirm("¿Estás seguro de que quieres realizar los cambios?");
+   }
+</script>

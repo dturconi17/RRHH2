@@ -1,0 +1,50 @@
+{% include 'admin/cabecera.html' %}
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Ingreso de la Categoria
+                        </div>
+                        <div class="card-body">
+                            {% for reglas in reglas %}
+                            <form action ="/admin/reglas_vacaciones/guardar_editar" method="post" enctype = "multipart/form-data">
+                                <input value = "{{ reglas[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
+                                <div class="mb-3">
+                                    <label for="desde" class="form-label">Desde año:</label>
+                                    <input type="text" class="form-control" name="desde" id="desde" value = {{ reglas[1] }} aria-describedby="helpId" onKeyPress='return numbersonly(this, event)' placeholder = "Escriba año inicial" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="hasta" class="form-label">Hasta año:</label>
+                                    <input type="text" class="form-control" name="hasta" id="hasta" value = {{ reglas[2] }} aria-describedby="helpId" onKeyPress='return numbersonly(this, event)' placeholder = "Escriba año inicial" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dias" class="form-label">Cantidad de Dias:</label>
+                                    <input type="text" class="form-control" name="dias" id="dias" value = {{ reglas[3] }} aria-describedby="helpId" onKeyPress='return numbersonly(this, event)' placeholder = "Escriba dias de licencia" required>
+                                </div>
+                                                        
+                                <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
+                                <a class="btn btn-info" style="color: white;" href="/reglas_vacaciones" onclick="return confirmChanges()">Descartar</a>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer text-muted">
+                         
+                        </div>
+                    </div>
+        <div class="col-md-4">
+        
+    </div>
+</div>
+
+<script>
+   function confirmChanges() {
+       return confirm("¿Estás seguro de que quieres realizar los cambios?");
+   }
+</script>
+
+{% include 'admin/footer.html' %}

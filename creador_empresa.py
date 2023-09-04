@@ -89,6 +89,8 @@ def admin_empresa_editar():
 
     logs.logs1('Editar Empresa')
 
+    _id = request.form['txtId']
+
     conexion=mysql.connect()
     cursor=conexion.cursor()
     cursor.execute("""Select id, empresa, 
@@ -96,7 +98,7 @@ def admin_empresa_editar():
                    (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por),
                    cuit,
                    domicilio
-                   from empresas where id = 1""")
+                   from empresas where id = %s;""", (_id))
     empresas=cursor.fetchall()
     conexion.commit
    

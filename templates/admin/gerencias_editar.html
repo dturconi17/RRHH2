@@ -1,0 +1,52 @@
+{% include 'admin/cabecera.html' %}
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de la Gerencia
+                </div>
+                <div class="card-body">
+                    {% for gerencias in gerencias %}
+                    <form action ="/admin/gerencias/guardar_editar" method="post" enctype = "multipart/form-data">
+                        <input value = "{{ gerencias[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
+                        <div class="mb-3">
+                            <label for="txtGerencia" class="form-label">Nombre Gerencia</label>
+                            <input type="text" class="form-control" name="txtGerencia" id="txtGerencia" aria-describedby="helpId" value = "{{ gerencias[1] }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtAtribucion" class="form-label">Atribucion de la Gerencia:</label>
+                            <select class="form-select form-select-sm" name="txtAtribucion" id="txtAtribucion" required>
+                                <option value = "{{ gerencias[4] }}" selected>{{ gerencias[3] }}</option>
+                                {% for atribuciones in atribuciones %}
+                                <option value="{{ atribuciones[0] }}">{{ atribuciones[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
+                        <a class="btn btn-info" style="color: white;" href="/gerencias" onclick="return confirmChanges()">Descartar</a>
+                    </form>
+                    {% endfor %}
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+        
+    </div>
+</div>
+
+<script>
+   function confirmChanges() {
+       return confirm("¿Estás seguro de que quieres realizar los cambios?");
+   }
+</script>
+
+{% include 'admin/footer.html' %}
