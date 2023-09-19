@@ -10,11 +10,22 @@
                 </div>
                 <div class="card-body">
                     <form action ="/admin/gerencias/guardar" method="post" enctype = "multipart/form-data">
+                        
                         <div class="mb-3">
                             <label for="txtGerencia" class="form-label">Gerencia</label>
-                            <input type="text" class="form-control" name="txtGerencia" id="txtGerencia" aria-describedby="helpId" placeholder = "Escriba la Gerencia">
+                            <input type="text" class="form-control" name="txtGerencia" id="txtGerencia" aria-describedby="helpId" placeholder = "Escriba la Gerencia" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtAtribucion" class="form-label">Atribucion de la Gerencia:</label>
+                            <select class="form-select form-select-sm" name="txtAtribucion" id="txtAtribucion" required>
+                                <option value = "" selected>Atribuciones de la Gerencia</option>
+                                {% for atribuciones in atribuciones %}
+                                <option value="{{ atribuciones[0] }}">{{ atribuciones[1] }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         
+                       
                         <button type="submit" class="btn btn-primary">Agregar</button>
                     </form>
                 </div>
@@ -24,16 +35,17 @@
             </div>
             
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-6">
+        <div class="col-md-8">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Gerencia</th>
-                            <th scope="col">Creado por</th>
+                            <th scope="col">Atribucion</th>
                             <th scope="col">Fecha</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -41,12 +53,19 @@
                         <tr class="">
                             <td scope="row">{{ gerencias[0] }}</td>
                             <td>{{ gerencias[1] }}</td>
-                            <td>{{ gerencias[4] }}</td>
                             <td>{{ gerencias[3] }}</td>
+                            <td>{{ gerencias[4] }}</td>
+                            <td>{{ gerencias[2] }}</td>
                             <td>
                                 <form action="/admin/gerencias/borrar" method="post" >
                                 <input value = "{{ gerencias[0] }}" type="hidden" name = "txtId" id = "txtId">
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/admin/gerencias/editar" method="post" >
+                                    <input value = "{{ gerencias[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                    <button type="submit" class="btn btn-warning btn-sm">Editar</button>
                                 </form>
                             </td>
                         </tr>

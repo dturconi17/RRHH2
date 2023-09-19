@@ -6,13 +6,13 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-header">
-                    Datos de Jerarquias
+                    Datos de la Estructura
                 </div>
                 <div class="card-body">
-                    <form action ="/admin/niveles/guardar" method="post" enctype = "multipart/form-data">
+                    <form action ="/admin/estructura/guardar" method="post" enctype = "multipart/form-data">
                         <div class="mb-3">
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="txtAprobacion" id="txtAprobacion" aria-describedby="helpId" placeholder = "Escriba la Jerarquia" required>
+                                <input type="text" class="form-control" name="txtAprobacion" id="txtAprobacion" aria-describedby="helpId" placeholder = "Escriba la Estructura" required>
                             </div>
                         </div>   
                         
@@ -29,27 +29,27 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Nivel de Creado</th>
+                            <th scope="col">Estructura Creada</th>
                             <th scope="col">Creado por</th>
                             <th scope="col">Fecha</th>
                             <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for niveles in niveles %}
+                        {% for estructura in estructura %}
                         <tr class="">
-                            <td scope="row">{{ niveles[1] }}</td>
-                            <td>{{ niveles[4] }}</td>
-                            <td>{{ niveles[3] }}</td>
+                            <td scope="row">{{ estructura[1] }}</td>
+                            <td>{{ estructura[4] }}</td>
+                            <td>{{ estructura[3] }}</td>
                             <td>
-                                <form action="/admin/niveles/borrar" method="post" >
-                                <input value = "{{ niveles[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <form action="/admin/estructura/borrar" method="post" >
+                                <input value = "{{ estructura[0] }}" type="hidden" name = "txtId" id = "txtId">
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="/admin/niveles/editar" method="post" >
-                                    <input value = "{{ niveles[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <form action="/admin/estructura/editar" method="post" >
+                                    <input value = "{{ estructura[0] }}" type="hidden" name = "txtId" id = "txtId">
                                     <button type="submit" class="btn btn-warning btn-sm">Editar</button>
                                 </form>
                             </td>

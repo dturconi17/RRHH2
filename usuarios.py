@@ -9,41 +9,25 @@ from tkinter import messagebox
 from django import template
 from django.db import models
 from db import *
-
+import logs
 
 @app.route('/usuarios')
 def usuarios():
 
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'listado_usuario',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
+    logs.logs1('Listado Usuarios')
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
     cursor.execute("SELECT id, nombre_usuario, nombre, apellidos, (select nivel from niveles where usuario.funcion = niveles.id) , (select gerencia from gerencias where usuario.gerencia = gerencias.id),(select jefatura from jefaturas where usuario.jefatura = jefaturas.id), clave_usuario FROM usuario")
     usuarios=cursor.fetchall()
     conexion.commit
-   
+    
     return render_template("/admin/usuarios.html", usuarios=usuarios)
 
 @app.route('/usuarios/borrar', methods=['POST'])
 def usuarios_borrar():
 
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'borrar_usuario',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
+    logs.logs1('Borrar Usuarios')
 
     _id = request.form['Idusuario']
 
@@ -59,15 +43,7 @@ def usuarios_borrar():
 @app.route('/usuarios/reseteo', methods=['POST'])
 def usuarios_reseteo():
 
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'reseteo_clave',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
+    logs.logs1('Reseteo Clave')
 
     _id = request.form['Idusuario']
 
@@ -84,15 +60,7 @@ def usuarios_reseteo():
 @app.route('/alta_usuario')
 def alta_usuario():
 
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'alta_usuario',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
+    logs.logs1('Alta Usuarios')
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
@@ -125,15 +93,7 @@ def alta_usuario():
 @app.route('/alta/usuarionuevo', methods=['POST'])
 def alta_usuarionuevo():
 
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'alta_usuario_grabar',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
+    logs.logs1('Graba Usuarios')
 
      
     _nombre = request.form['nombre']
@@ -163,15 +123,7 @@ def alta_usuarionuevo():
 @app.route('/usuarios/editar_usuarionuevo', methods=['POST'])
 def editar_usuarionuevo():
 
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'editar_usuario',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
+    logs.logs1('Edita Usuarios')
 
     _Idusuario = request.form['Idusuario']
     _nombre = request.form['nombre']
@@ -201,15 +153,7 @@ def editar_usuarionuevo():
 @app.route('/usuarios/editar', methods=['POST'])
 def editar_usuario():
 
-    if not 'login' in session:
-        return redirect("/login")
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'editar_usuario_listar',%s );"
-    datos= (session["usuario"])
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()   
+    logs.logs1('Edita Listado Usuarios')
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
@@ -235,7 +179,6 @@ def editar_usuario():
     cursor.execute("Select nivel, id from niveles")
     niveles=cursor.fetchall()
     conexion.commit
-
 
     _Idusuario = request.form['Idusuario']
 
