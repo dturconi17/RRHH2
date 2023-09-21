@@ -206,9 +206,28 @@ INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`
 INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (104,'Jefe',4,'dturconi',now());
 INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (108,'CEO',6,'dturconi',now());
 
+CREATE TABLE IF NOT EXISTS `sitio`.`aprobaciones` 
+( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
+`descripcion` varchar(100) NOT NULL COMMENT 'Descripcion', 
+`id_aprobacion` int(9) NOT NULL COMMENT 'Id de Aprobacion', 
+PRIMARY KEY (`id`) );
+
 insert into `sitio`.aprobaciones values (1, 'Nivel 0 - No Aprueba', 1);
 insert into `sitio`.aprobaciones values (2, 'Nivel 1 - Aprueba Nivel 0', 2);
 insert into `sitio`.aprobaciones values (3, 'Nivel 2 - Aprueba Nivel 0 y 1', 3);
 insert into `sitio`.aprobaciones values (4, 'Nivel 3 - Aprueba Nivel 0, 1 y 2', 4);
 insert into `sitio`.aprobaciones values (5, 'Nivel 4 - Aprueba Nivel 0, 1, 2 y 3', 5);
-insert into `sitio`.aprobaciones values (6, 'Nivel 5 - Aprueba Todo', 6);
+insert into `sitio`.aprobaciones values (99, 'Nivel 99 - Aprueba Todo', 99);
+
+CREATE TABLE IF NOT EXISTS `sitio`.`orden` 
+( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
+`descripcion` varchar(100) NOT NULL COMMENT 'Descripcion', 
+`id_aprobacion` int(9) NOT NULL COMMENT 'Id de Aprobacion', 
+PRIMARY KEY (`id`) );
+
+insert into `sitio`.aprobaciones values (5, 'Orden 5 (Sexta Linea)', 5);
+insert into `sitio`.aprobaciones values (10, 'Orden 4 (Quinta Linea)', 10);
+insert into `sitio`.aprobaciones values (15, 'Orden 3 (Cuarta Linea)', 15);
+insert into `sitio`.aprobaciones values (20, 'Orden 2 (Tercer Linea)', 20);
+insert into `sitio`.aprobaciones values (25, 'Orden 1 (Segunda Linea)', 25);
+insert into `sitio`.aprobaciones values (30, 'Orden 0 (Primer Linea)', 30);
