@@ -11,10 +11,30 @@
                 <div class="card-body">
                     <form action ="/admin/estructura/guardar" method="post" enctype = "multipart/form-data">
                         <div class="mb-3">
+                            <label for="Tipo_area" class="form-label">Jerarquia del Area:</label>
+                            <select class="form-select form-control" name="Tipo_area">
+                                <option value = "" selected>Escoja una Jerarquia</option>
+                                {% for jerarquia in jerarquia %}
+                                <option value="{{ jerarquia[0] }}">{{ jerarquia[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="txtAprobacion" id="txtAprobacion" aria-describedby="helpId" placeholder = "Escriba la Estructura" required>
+                                <input type="text" class="form-control" name="nombre_area" id="nombre_area" aria-describedby="helpId" placeholder = "Nombre Area" required>
                             </div>
-                        </div>   
+                        </div>
+                        {% if combo_reporta == 'disponible' %}   
+                        <div class="mb-3">
+                            <label for="reporta_a" class="form-label">Reporta a:</label>
+                            <select class="form-select form-control" name="reporta_a">
+                                <option value = "" selected>Reporta a:</option>
+                                {% for reporta in reporta %}
+                                <option value="{{ reporta[0] }}">{{ reporta[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div> 
+                        {% endif %}
                         
                         <button type="submit" class="btn btn-primary">Agregar</button>
                     </form>
@@ -25,11 +45,13 @@
             </div>
             
         </div>
-        <div class="col-md-7">
+        <div class="col-md-9">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Estructura Creada</th>
+                            
+                            <th scope="col">Area</th>
+                            <th scope="col">Reporta a:</th>
                             <th scope="col">Creado por</th>
                             <th scope="col">Fecha</th>
                             <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
@@ -38,9 +60,10 @@
                     <tbody>
                         {% for estructura in estructura %}
                         <tr class="">
-                            <td scope="row">{{ estructura[1] }}</td>
-                            <td>{{ estructura[4] }}</td>
+                            <td scope="row">{{ estructura[2] + ' ' +estructura[1]}}</td>
                             <td>{{ estructura[3] }}</td>
+                            <td>{{ estructura[5] }}</td>
+                            <td>{{ estructura[4] }}</td>
                             <td>
                                 <form action="/admin/estructura/borrar" method="post" >
                                 <input value = "{{ estructura[0] }}" type="hidden" name = "txtId" id = "txtId">

@@ -30,28 +30,6 @@
         <br>
     </div>
     {% endif %}
-    {% if cnt_gerencias == 0 %}
-    <div class="col-md-3">
-        <div class="toast-body">
-            ¡Hola {{ session["nombre_usr"] }}!. Carga Gerencias ahora.
-            <div class="mt-2 pt-2 border-top">
-                <button type="button" class="btn btn-primary btn-sm"><a href="/gerencias" style="color: white;">Ir Gerencias</a></button>
-            </div>
-        </div>
-        <br>
-    </div>
-    {% endif %}
-    {% if cnt_jefaturas == 0 %}
-    <div class="col-md-3">
-        <div class="toast-body">
-            Segundo paso, cargar Jefaturas.
-            <div class="mt-2 pt-2 border-top">
-                <button type="button" class="btn btn-primary btn-sm"><a href="/jefaturas" style="color: white;">Ir Jefaturas</a></button>
-            </div>
-            <br>
-        </div>
-    </div>
-    {% endif %}
     {% if cnt_niveles == 0 %}
     <div class="col-md-3">
         <div class="toast-body">

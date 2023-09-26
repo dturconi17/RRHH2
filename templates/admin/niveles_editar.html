@@ -15,8 +15,17 @@
                     <form action ="/admin/niveles/guardar_editar" method="post" enctype = "multipart/form-data">
                         <input value = "{{ niveles[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
                         <div class="mb-3">
-                            <label for="txtJerarquia" class="form-label">Jerarquia</label>
-                            <input type="text" class="form-control" name="txtJerarquia" id="txtJerarquia" aria-describedby="helpId" value = "{{ niveles[1] }}" required>
+                            <label for="Jerarquia" class="form-label">Jerarquia</label>
+                            <input type="text" class="form-control" name="Jerarquia" id="Jerarquia" aria-describedby="helpId" value = "{{ niveles[1] }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Orden" class="form-label">Orden:</label>
+                            <select class="form-select form-control" name="Orden">
+                                <option value = "{{ niveles[3] }}" selected>{{ niveles[2] }}</option>
+                                {% for orden in orden %}
+                                <option value="{{ orden[0] }}">{{ orden[1] }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
                         <a class="btn btn-info" style="color: white;" href="/niveles" onclick="return confirmChanges()">Descartar</a>

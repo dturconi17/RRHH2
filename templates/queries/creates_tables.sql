@@ -48,25 +48,27 @@ CREATE TABLE IF NOT EXISTS `sitio`.`jefaturas`
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
-CREATE TABLE IF NOT EXISTS `sitio`.`area` 
+CREATE TABLE IF NOT EXISTS `sitio`.`estructuras` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
-`area` varchar(50) NOT NULL COMMENT 'Jefatura', 
-`aprobacion` int(11) NOT NULL COMMENT 'Aprobacion',
+`area` varchar(50) NOT NULL COMMENT 'Nombre Area', 
+`tipo_area` int(11) NOT NULL COMMENT 'Tipo Area',
+`nivel_area` int(11) NOT NULL COMMENT 'Nivel Area',
+`reporta_a` int(11) NOT NULL COMMENT 'Reporta Area',
 `creado_por` varchar(50) NOT NULL COMMENT 'Usuario Creador', 
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
 
 insert into sitio.area (area, id_dependencia, id_estructura, creado_por, fecha) values ('Gerencia General',1,1,'dturconi',now());
 
-
-
 CREATE TABLE IF NOT EXISTS `sitio`.`niveles` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `nivel` varchar(50) NOT NULL, 
-`aprobacion` int(1) NOT NULL, 
+`orden` int(1) NOT NULL, 
 `creado_por` varchar(50) NOT NULL, 
 `fecha` DATETIME NOT NULL, 
 PRIMARY KEY (`id`) );
+
+INSERT INTO `sitio`.`niveles` VALUES (0,'Admin',35,'dturconi',now());
 
 CREATE TABLE IF NOT EXISTS `sitio`.`estructuras` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
@@ -145,14 +147,17 @@ CREATE TABLE IF NOT EXISTS `sitio`.`usuario`
 `sexo` varchar(15) NOT NULL, 
 `mail` varchar(50) NOT NULL,
 `empresa` int(2) NOT NULL, 
-`gerencia` int(2) NOT NULL,
-`jefatura` int(2) NOT NULL,
+`orden` int(2) NOT NULL,
 `funcion` int(2) NOT NULL,
 `fecha_incorporacion` datetime NOT NULL,
 `fecha_baja` datetime,
 `creador` varchar(50) NOT NULL,
 `fecha_alta` datetime NOT NULL,
 PRIMARY KEY (`id`) );
+
+INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `orden`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('dturconi','Santi1703','Diego','Turconi','28032766','Hombre','dturconi@gmail.com',0,30,99,now(),'dturconi',now());
+INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `orden`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('gfasanella','Santi1703','Gabriela','Fasanella','25477457','Mujer','gaby.fasane@gmail.com',0,30,99,now(),'dturconi',now());
+
 
 
 CREATE TABLE IF NOT EXISTS `sitio`.`vacaciones` 
@@ -198,13 +203,6 @@ CREATE TABLE IF NOT EXISTS `sitio`.`saludos`
 `visto` int NOT NULL,
 PRIMARY KEY (`id`) );
 
-INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `gerencia`, `jefatura`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('dturconi','Santi1703','Diego','Turconi','28032766','Hombre','dturconi@gmail.com',0,0,0,99,now(),'dturconi',now());
-INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `gerencia`, `jefatura`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('gfasanella','Santi1703','Gabriela','Fasanella','25477457','Mujer','gaby.fasane@gmail.com',0,0,0,99,now(),'dturconi',now());
-
-INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (99,'Admin',0,'dturconi',now());
-INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (103,'Gerente',5,'dturconi',now());
-INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (104,'Jefe',4,'dturconi',now());
-INSERT INTO `sitio`.`niveles`(`id`, `nivel`, `aprobacion`, `creado_por`, `fecha`) VALUES (108,'CEO',6,'dturconi',now());
 
 CREATE TABLE IF NOT EXISTS `sitio`.`aprobaciones` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
@@ -212,22 +210,24 @@ CREATE TABLE IF NOT EXISTS `sitio`.`aprobaciones`
 `id_aprobacion` int(9) NOT NULL COMMENT 'Id de Aprobacion', 
 PRIMARY KEY (`id`) );
 
-insert into `sitio`.aprobaciones values (1, 'Nivel 0 - No Aprueba', 1);
-insert into `sitio`.aprobaciones values (2, 'Nivel 1 - Aprueba Nivel 0', 2);
-insert into `sitio`.aprobaciones values (3, 'Nivel 2 - Aprueba Nivel 0 y 1', 3);
-insert into `sitio`.aprobaciones values (4, 'Nivel 3 - Aprueba Nivel 0, 1 y 2', 4);
-insert into `sitio`.aprobaciones values (5, 'Nivel 4 - Aprueba Nivel 0, 1, 2 y 3', 5);
+insert into `sitio`.aprobaciones values (1, 'Nivel 1 - No Aprueba', 1);
+insert into `sitio`.aprobaciones values (2, 'Nivel 2 - Aprueba Nivel 1', 2);
+insert into `sitio`.aprobaciones values (3, 'Nivel 3 - Aprueba Nivel 1 y 2', 3);
+insert into `sitio`.aprobaciones values (4, 'Nivel 4 - Aprueba Nivel 1, 2 y 3', 4);
+insert into `sitio`.aprobaciones values (5, 'Nivel 5 - Aprueba Nivel 1, 2, 3 y 4', 5);
 insert into `sitio`.aprobaciones values (99, 'Nivel 99 - Aprueba Todo', 99);
+
 
 CREATE TABLE IF NOT EXISTS `sitio`.`orden` 
 ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
 `descripcion` varchar(100) NOT NULL COMMENT 'Descripcion', 
-`id_aprobacion` int(9) NOT NULL COMMENT 'Id de Aprobacion', 
+`id_orden` int(9) NOT NULL COMMENT 'Id de Aprobacion', 
 PRIMARY KEY (`id`) );
 
-insert into `sitio`.aprobaciones values (5, 'Orden 5 (Sexta Linea)', 5);
-insert into `sitio`.aprobaciones values (10, 'Orden 4 (Quinta Linea)', 10);
-insert into `sitio`.aprobaciones values (15, 'Orden 3 (Cuarta Linea)', 15);
-insert into `sitio`.aprobaciones values (20, 'Orden 2 (Tercer Linea)', 20);
-insert into `sitio`.aprobaciones values (25, 'Orden 1 (Segunda Linea)', 25);
-insert into `sitio`.aprobaciones values (30, 'Orden 0 (Primer Linea)', 30);
+insert into `sitio`.orden values (5, 'Orden 5 (Sexta Linea)', 5);
+insert into `sitio`.orden values (10, 'Orden 4 (Quinta Linea)', 10);
+insert into `sitio`.orden values (15, 'Orden 3 (Cuarta Linea)', 15);
+insert into `sitio`.orden values (20, 'Orden 2 (Tercer Linea)', 20);
+insert into `sitio`.orden values (25, 'Orden 1 (Segunda Linea)', 25);
+insert into `sitio`.orden values (30, 'Orden 0 (Primer Linea)', 30);
+insert into `sitio`.orden values (35, 'Orden Admin (Primer Linea)', 35);

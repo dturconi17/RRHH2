@@ -45,6 +45,20 @@ def admin_inicio():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
+    cursor.execute("Select count(*) from gerencias")
+    gerencias=cursor.fetchall()
+    conexion.commit
+    cnt_gerencias = int(gerencias[0][0])
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select count(*) from jefaturas")
+    jefaturas=cursor.fetchall()
+    conexion.commit
+    cnt_jefaturas = int(jefaturas[0][0])
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
     cursor.execute("Select count(*) from niveles where id not in (99)")
     niveles=cursor.fetchall()
     conexion.commit
@@ -58,7 +72,7 @@ def admin_inicio():
     cnt_reglas = int(reglas[0][0])
     print (cnt_reglas)
 
-    return render_template("admin/index.html", cnt_niveles = cnt_niveles, cnt_empresas = cnt_empresas, cnt_reglas = cnt_reglas)
+    return render_template("admin/index.html", cnt_gerencias = cnt_gerencias, cnt_jefaturas = cnt_jefaturas, cnt_niveles = cnt_niveles, cnt_empresas = cnt_empresas, cnt_reglas = cnt_reglas)
 
 
 @app.route('/inicio')
@@ -101,6 +115,20 @@ def administrador():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
+    cursor.execute("Select count(*) from gerencias")
+    gerencias=cursor.fetchall()
+    conexion.commit
+    cnt_gerencias = int(gerencias[0][0])
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select count(*) from jefaturas")
+    jefaturas=cursor.fetchall()
+    conexion.commit
+    cnt_jefaturas = int(jefaturas[0][0])
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
     cursor.execute("Select count(*) from niveles where id not in (99)")
     niveles=cursor.fetchall()
     conexion.commit
@@ -120,7 +148,9 @@ def administrador():
     conexion.commit
     cnt_usuario = int(usuario[0][0])
 
-    return render_template("/admin/index.html", cnt_niveles = cnt_niveles, cnt_empresas = cnt_empresas, cnt_reglas = cnt_reglas, cnt_usuario = cnt_usuario)
+
+
+    return render_template("/admin/index.html", cnt_gerencias = cnt_gerencias, cnt_jefaturas = cnt_jefaturas, cnt_niveles = cnt_niveles, cnt_empresas = cnt_empresas, cnt_reglas = cnt_reglas, cnt_usuario = cnt_usuario)
 
 @app.route('/img/<imagen>')
 def imagenes(imagen):

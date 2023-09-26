@@ -12,10 +12,18 @@
                     <form action ="/admin/niveles/guardar" method="post" enctype = "multipart/form-data">
                         <div class="mb-3">
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="txtAprobacion" id="txtAprobacion" aria-describedby="helpId" placeholder = "Escriba la Jerarquia" required>
+                                <input type="text" class="form-control" name="Jerarquia" id="Jerarquia" aria-describedby="helpId" placeholder = "Escriba la Jerarquia" required>
                             </div>
                         </div>   
-                        
+                        <div class="mb-3">
+                            <label for="Orden" class="form-label">Orden:</label>
+                            <select class="form-select form-control" name="Orden">
+                                <option value = "" selected>Escoja un Orden</option>
+                                {% for orden in orden %}
+                                <option value="{{ orden[0] }}">{{ orden[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>                        
                         <button type="submit" class="btn btn-primary">Agregar</button>
                     </form>
                 </div>
@@ -25,11 +33,12 @@
             </div>
             
         </div>
-        <div class="col-md-7">
+        <div class="col-md-9">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Nivel de Creado</th>
+                            <th scope="col">Atribucion</th>
                             <th scope="col">Creado por</th>
                             <th scope="col">Fecha</th>
                             <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
@@ -39,8 +48,10 @@
                         {% for niveles in niveles %}
                         <tr class="">
                             <td scope="row">{{ niveles[1] }}</td>
+                            <td>{{ niveles[2] }}</td>
                             <td>{{ niveles[4] }}</td>
                             <td>{{ niveles[3] }}</td>
+                            {% if niveles[1] != 'Admin' %}
                             <td>
                                 <form action="/admin/niveles/borrar" method="post" >
                                 <input value = "{{ niveles[0] }}" type="hidden" name = "txtId" id = "txtId">
@@ -53,6 +64,7 @@
                                     <button type="submit" class="btn btn-warning btn-sm">Editar</button>
                                 </form>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
 

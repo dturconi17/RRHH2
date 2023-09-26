@@ -10,6 +10,7 @@ from django import template
 from django.db import models
 from db import *
 from usuarios import *
+from logueo import *
 
 
 ##########################################
@@ -24,9 +25,12 @@ def logueo():
 @app.route('/admin/login', methods = ['POST'] )
 def admin_login_post():
 
+    logs.logs1('Logueo')
+
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("select count(*) from periodos_activos where activo = 1 and tipo_licencia = 'Vacaciones'")
+    cursor.execute("""select count(*) from periodos_activos 
+                   where activo = 1 and tipo_licencia = 'Vacaciones'""")
     lic_vac=cursor.fetchall()
     conexion.commit
     licencia_vacaciones = int(lic_vac[0][0])
@@ -38,21 +42,17 @@ def admin_login_post():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("Select count(*) from `usuario` where nombre_usuario = %s and clave_usuario = %s", (_usuario, _password))
+    cursor.execute("""Select count(*) from `usuario` 
+                   where nombre_usuario = %s and clave_usuario = %s""", (_usuario, _password))
     libros=cursor.fetchall()
     conexion.commit
     verificacion = int(libros[0][0])
 
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'Logueo',%s );"
-    datos= (_usuario)
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()
 
     if  verificacion == 1:
         cursor=conexion.cursor()
-        cursor.execute("Select count(*) from usuario where nombre_usuario = %s and clave_usuario = 'Clave123'", (_usuario))
+        cursor.execute("""Select count(*) from usuario 
+                       where nombre_usuario = %s and clave_usuario = 'Clave123'""", (_usuario))
         clave=cursor.fetchall()
         conexion.commit
         cambiar_clave = int(clave[0][0])
@@ -67,15 +67,21 @@ def admin_login_post():
             return render_template("/admin/login.html", mensaje = "A2", usuario = _usuario)
         else:
                 cursor=conexion.cursor()
-                cursor.execute("Select count(*), sexo, funcion, nombre, aprobacion from usuario, niveles where usuario.funcion = niveles.id and nombre_usuario = %s and clave_usuario = %s group by sexo, nombre, aprobacion, funcion", (_usuario, _password))
+                cursor.execute("""Select count(*), sexo, 
+                               (select nivel from sitio.niveles where niveles.aprobacion = funcion) as nivel, 
+                               nombre, 
+                               (select aprobacion from sitio.niveles where niveles.aprobacion = funcion) as aprobacion
+                               from usuario 
+                               where nombre_usuario = %s and clave_usuario = %s 
+                               group by sexo, nombre, nivel, aprobacion""", (_usuario, _password))
                 libros=cursor.fetchall()
                 conexion.commit
                 sexo = str(libros[0][1])
-                funcion = int(libros[0][2])
+                funcion = str(libros[0][2])
                 nombre = str(libros[0][3])
                 aprobacion = int(libros[0][4])
                 
-                if funcion == 99:
+                if funcion == 'Admin':
                     session["login"]=True
                     session["usuario"]=_usuario
                     session["sexo"]= sexo
@@ -105,6 +111,50 @@ def admin_login_post():
                     return render_template("/admin/login.html", mensaje = mensaje2)
     else:
             return render_template("/admin/login.html", mensaje = "Acceso Denegado")
+
+
+
+@app.route('/admin/cambio_clave', methods=['POST'])
+def cambio_clave():
+
+    logs.logs1('Cambio Clave Admin')
+
+
+    _nuevaclave = request.form['txtNuevaclave']
+    _usuario = request.form['usuario']
+
+    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'Cambio Clave',%s );"
+    datos= (_usuario)
+    conexion= mysql.connect()
+    cursor = conexion.cursor()
+    cursor.execute(sql, datos)
+    conexion.commit()
+
+    sql = "update `usuario` set clave_usuario = %s where nombre_usuario = %s;"
+    datos= ( _nuevaclave, _usuario)
+    conexion= mysql.connect()
+    cursor = conexion.cursor()
+    cursor.execute(sql, datos)
+    conexion.commit()
+    
+    return redirect("/")
+
+@app.route('/cambio_clave')
+def cambio_clave2():
+    
+    logs.logs1('Cambio Clave Usuario')
+
+
+    return render_template("/sitio/cambio_clave.html")
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/cumple/login2', methods = ['POST'] )
@@ -176,31 +226,3 @@ def admin_login7_post():
 
 
 
-@app.route('/admin/cambio_clave', methods=['POST'])
-def cambio_clave():
-
-    _nuevaclave = request.form['txtNuevaclave']
-    _usuario = request.form['usuario']
-
-    sql = "insert into logueo (fecha, sitio, usuario) values (now(), 'Cambio Clave',%s );"
-    datos= (_usuario)
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()
-
-    sql = "update `usuario` set clave_usuario = %s where nombre_usuario = %s;"
-    datos= ( _nuevaclave, _usuario)
-    conexion= mysql.connect()
-    cursor = conexion.cursor()
-    cursor.execute(sql, datos)
-    conexion.commit()
-    
-    return redirect("/")
-
-
-@app.route('/cambio_clave')
-def cambio_clave2():
-
-       
-    return render_template("/sitio/cambio_clave.html")
