@@ -1,0 +1,152 @@
+{% include 'admin/cabecera.html' %}
+
+<script type="text/javascript">
+    function numbersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // numbers
+    else if ((("0123456789").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    function lettersonly(myfield, e, dec)
+    {
+    var key;
+    var keychar;
+    
+    if (window.event)
+       key = window.event.keyCode;
+    else if (e)
+       key = e.which;
+    else
+       return true;
+    keychar = String.fromCharCode(key);
+    
+    // control keys
+    if ((key==null) || (key==0) || (key==8) ||
+        (key==9) || (key==13) || (key==27) )
+       return true;
+    
+    // letters
+    else if ((("qwertyuiopasdfghjkl�zxcvbnm������QWERTYUIOPASDFGHJKL�ZXCVBNM������.,'�` ").indexOf(keychar) > -1))
+       return true;
+    
+    // decimal point jump
+    else if (dec && (keychar == "."))
+       {
+       myfield.form.elements[dec].focus();
+       return false;
+       }
+    else
+       return false;
+    }
+    
+    
+    
+    </script>
+    
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Datos de las Empresas
+                </div>
+                <div class="card-body">
+                    <form action ="/admin/empresa/guardar" method="post" enctype = "multipart/form-data">
+                        <div class="mb-3">
+                            <label for="txtEmpresa" class="form-label">Empresa</label>
+                            <input type="text" class="form-control" name="txtEmpresa" id="txtEmpresa" aria-describedby="helpId" placeholder = "Nombre de la Empresa" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtCuit" class="form-label">CUIT</label>
+                            <input type="text" class="form-control" name="txtCuit" id="txtCuit" aria-describedby="helpId" placeholder = "CUIT" onKeyPress='return numbersonly(this, event)' required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtDomicilio" class="form-label">Domicilio</label>
+                            <input type="text" class="form-control" name="txtDomicilio" id="txtDomicilio" aria-describedby="helpId" placeholder = "Domicilio" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                 
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Empresa</th>
+                            <th scope="col">Cuit</th>
+                            <th scope="col">Domicilio</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for empresas in empresas %}
+                        <tr class="">
+                            <td scope="row">{{ empresas[0] }}</td>
+                            <td>{{ empresas[1] }}</td>
+                            <td>{{ empresas[4] }}</td>
+                            <td>{{ empresas[5] }}</td>
+                            <td>{{ empresas[3] }}</td>
+                            <td>{{ empresas[2] }}</td>
+                            <td>
+                                <form action="/admin/empresa/borrar" method="post" >
+                                <input value = "{{ empresas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/admin/empresa/editar" method="post" >
+                                    <input value = "{{ empresas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                    <button type="submit" class="btn btn-warning btn-sm">Editar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% include 'admin/footer.html' %}

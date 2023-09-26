@@ -225,6 +225,14 @@ CREATE TABLE IF NOT EXISTS `sitio`.`orden`
 `id_orden` int(9) NOT NULL COMMENT 'Id de Aprobacion', 
 PRIMARY KEY (`id`) );
 
+CREATE TABLE IF NOT EXISTS `sitio`.`cargos` 
+( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
+`cargo_general` varchar(100) NOT NULL COMMENT 'Cargo General',
+`cargo_sub` varchar(100) NOT NULL COMMENT 'Sub Cargo', 
+`creador` varchar(50) NOT NULL,
+`fecha_alta` datetime NOT NULL,
+PRIMARY KEY (`id`) );
+
 insert into `sitio`.orden values (5, 'Orden 5 (Sexta Linea)', 5);
 insert into `sitio`.orden values (10, 'Orden 4 (Quinta Linea)', 10);
 insert into `sitio`.orden values (15, 'Orden 3 (Cuarta Linea)', 15);

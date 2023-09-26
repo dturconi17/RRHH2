@@ -23,6 +23,7 @@ from creador_gerencias import *
 from creador_reglas_vacaciones import *
 from creador_dependencias import *
 from creador_estructura import *
+from creador_cargo import *
 
 @app.route("/css/<archivocss>")
 def css_link(archivocss):

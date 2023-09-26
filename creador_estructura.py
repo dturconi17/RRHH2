@@ -105,13 +105,14 @@ def admin_estructura_guardar_editar():
     logs.logs1('Guardar Editar estructura')
 
     _id = request.form['txtId']
-    _jerarquia = request.form['txtJerarquia']
-
+    _jerarquia = request.form['Tipo_area']
+    _nombre_area = request.form['nombre_area']
+    _reporta_a = request.form['reporta_a']
 
     tiempo = datetime.now()
     
-    sql = "update `estructuras` set estructura = %s, creado_por = %s, fecha = %s where id = %s;"
-    datos=(_jerarquia, session["usuario"], tiempo, _id)
+    sql = "update `estructuras` set tipo_area = %s, area = %s, reporta_a = %s, creado_por = %s, fecha = %s where id = %s;"
+    datos=(_jerarquia, _nombre_area, _reporta_a, session["usuario"], tiempo, _id)
     conexion= mysql.connect()
     cursor = conexion.cursor()
     cursor.execute(sql,datos)
@@ -132,10 +133,12 @@ def admin_estructura_editar():
                    area, 
                    (select nivel from niveles where tipo_area = niveles.id),
                    tipo_area,
-                   concat((select nivel from niveles where (select tipo_area from estructuras b where b.id=estructuras.reporta_a) = niveles.id), ' ',
+                   concat((select nivel from niveles where (select tipo_area from estructuras b where b.id=estructuras.reporta_a) = niveles.id), 
+                   ' ',
                    (select area from estructuras b where b.id = estructuras.reporta_a)),  
                    CONCAT(DAY(fecha), '/',MONTH(fecha), '/',YEAR(fecha)), 
-                   (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por)
+                   (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por),
+                   (select id from estructuras c where estructuras.reporta_a = id )
                    from estructuras where id = %s;""", (_id))
     estructura=cursor.fetchall()
     conexion.commit
