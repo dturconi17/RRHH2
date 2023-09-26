@@ -46,7 +46,7 @@ def estructura():
 
         conexion=mysql.connect()
         cursor=conexion.cursor()
-        cursor.execute("""Select id, area from estructuras """)
+        cursor.execute("""Select id, concat((select nivel from sitio.niveles where id = tipo_area),' ',area) from estructuras """)
         reporta=cursor.fetchall()
         conexion.commit
 
@@ -128,11 +128,29 @@ def admin_estructura_editar():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("""Select id, estructura, '',  
+    cursor.execute("""Select id, 
+                   area, 
+                   (select nivel from niveles where tipo_area = niveles.id),
+                   tipo_area,
+                   concat((select nivel from niveles where (select tipo_area from estructuras b where b.id=estructuras.reporta_a) = niveles.id), ' ',
+                   (select area from estructuras b where b.id = estructuras.reporta_a)),  
                    CONCAT(DAY(fecha), '/',MONTH(fecha), '/',YEAR(fecha)), 
                    (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por)
                    from estructuras where id = %s;""", (_id))
     estructura=cursor.fetchall()
     conexion.commit
    
-    return render_template("/admin/estructura_editar.html", estructura = estructura)
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("""Select id, nivel, orden from niveles where nivel not in ('Admin')""")
+    jerarquia=cursor.fetchall()
+    conexion.commit
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("""Select id, concat((select nivel from sitio.niveles where id = tipo_area),' ',area) from estructuras """)
+    reporta=cursor.fetchall()
+    conexion.commit
+
+
+    return render_template("/admin/estructura_editar.html", estructura = estructura, jerarquia = jerarquia, reporta = reporta)
