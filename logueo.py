@@ -48,7 +48,6 @@ def admin_login_post():
     conexion.commit
     verificacion = int(libros[0][0])
 
-
     if  verificacion == 1:
         cursor=conexion.cursor()
         cursor.execute("""Select count(*) from usuario 
@@ -67,13 +66,13 @@ def admin_login_post():
             return render_template("/admin/login.html", mensaje = "A2", usuario = _usuario)
         else:
                 cursor=conexion.cursor()
-                cursor.execute("""Select count(*), sexo, 
-                               (select nivel from sitio.niveles where niveles.aprobacion = funcion) as nivel, 
-                               nombre, 
-                               (select aprobacion from sitio.niveles where niveles.aprobacion = funcion) as aprobacion
-                               from usuario 
-                               where nombre_usuario = %s and clave_usuario = %s 
-                               group by sexo, nombre, nivel, aprobacion""", (_usuario, _password))
+                cursor.execute("""Select count(*), sexo,
+                                (select nivel from niveles where niveles.orden = funcion) as nivel,
+                                nombre, 
+                                (select id_aprobacion from aprobaciones where id_aprobacion = aprobacion) as aprobacion
+                                from usuario 
+                                where nombre_usuario = %s and clave_usuario = %s 
+                                group by sexo, nombre, nivel, aprobacion""", (_usuario, _password))
                 libros=cursor.fetchall()
                 conexion.commit
                 sexo = str(libros[0][1])

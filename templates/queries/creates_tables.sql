@@ -149,14 +149,15 @@ CREATE TABLE IF NOT EXISTS `sitio`.`usuario`
 `empresa` int(2) NOT NULL, 
 `orden` int(2) NOT NULL,
 `funcion` int(2) NOT NULL,
+`aprobacion` int(2) NOT NULL,
 `fecha_incorporacion` datetime NOT NULL,
 `fecha_baja` datetime,
 `creador` varchar(50) NOT NULL,
 `fecha_alta` datetime NOT NULL,
 PRIMARY KEY (`id`) );
 
-INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `orden`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('dturconi','Santi1703','Diego','Turconi','28032766','Hombre','dturconi@gmail.com',0,30,99,now(),'dturconi',now());
-INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `orden`, `funcion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('gfasanella','Santi1703','Gabriela','Fasanella','25477457','Mujer','gaby.fasane@gmail.com',0,30,99,now(),'dturconi',now());
+INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `orden`, `funcion`, `aprobacion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('dturconi','Santi1703','Diego','Turconi','28032766','Hombre','dturconi@gmail.com',0,30,35,99,now(),'dturconi',now());
+INSERT INTO `sitio`.`usuario`(`nombre_usuario`, `clave_usuario`, `nombre`, `apellidos`, `documento`, `sexo`, `mail`, `empresa`, `orden`, `funcion`, `aprobacion`, `fecha_incorporacion`,`creador`, `fecha_alta`) VALUES ('gfasanella','Santi1703','Gabriela','Fasanella','25477457','Mujer','gaby.fasane@gmail.com',0,30,35,99,now(),'dturconi',now());
 
 
 
