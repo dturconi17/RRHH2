@@ -18,7 +18,7 @@ def usuarios():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("SELECT id, nombre_usuario, nombre, apellidos, (select nivel from niveles where usuario.funcion = niveles.id) , (select gerencia from gerencias where usuario.gerencia = gerencias.id),(select jefatura from jefaturas where usuario.jefatura = jefaturas.id), clave_usuario FROM usuario")
+    cursor.execute("SELECT id, nombre_usuario, nombre, apellidos, orden, funcion, aprobacion, estructura, cargo FROM usuario")
     usuarios=cursor.fetchall()
     conexion.commit
     
@@ -68,27 +68,31 @@ def alta_usuario():
     empresas=cursor.fetchall()
     conexion.commit
 
-
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("Select gerencia, id from gerencias")
-    gerencias=cursor.fetchall()
-    conexion.commit
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("Select jefatura, id from jefaturas")
-    jefaturas=cursor.fetchall()
-    conexion.commit
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("Select nivel, id from niveles")
+    cursor.execute("Select concat(cargo_general,' - ',cargo_sub), id from cargos")
     niveles=cursor.fetchall()
     conexion.commit
 
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select concat((select nivel from niveles where tipo_area = niveles.id),' ',area), id from estructuras")
+    estructura=cursor.fetchall()
+    conexion.commit
 
-    return render_template("admin/alta_usuario.html", gerencias = gerencias, jefaturas = jefaturas, niveles = niveles, empresas = empresas)
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select  id, descripcion from aprobaciones")
+    aprobacion=cursor.fetchall()
+    conexion.commit
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select  id, nivel from niveles where id in (1,15)")
+    admin=cursor.fetchall()
+    conexion.commit
+
+    return render_template("admin/alta_usuario.html", admin=admin, niveles = niveles, empresas = empresas, estructura=estructura, aprobacion = aprobacion)
 
 @app.route('/alta/usuarionuevo', methods=['POST'])
 def alta_usuarionuevo():
@@ -100,19 +104,25 @@ def alta_usuarionuevo():
     _apellido = request.form['apellido']
     _sexo = request.form['sexo']
     _mail = request.form['mail']
-    _funcion = request.form['Nivel']
+    _funcion = request.form['Admin']
     _documento = request.form['documento']
     tiempo = datetime.now()
     _empresa = request.form['Empresa']
-    _gerencia = request.form['Gerencia']
-    _jefatura = request.form['Jefatura']
     _fecha_incorporacion = request.form['fecha_incorporacion']
-    
+    _estructura = request.form['Estructura']
+    _aprobacion = request.form['Aprobacion']
+    _cargo = request.form['Cargo']
+
     _usuarionuevo = _nombre[0:1].lower() + _apellido[0:1].lower() + _documento[-5:]
+    
 
+    sql = """INSERT INTO `usuario` 
+    (nombre_usuario, clave_usuario, nombre, apellidos, documento, sexo, mail, 
+    empresa, funcion, estructura, aprobacion, fecha_incorporacion, creador, fecha_alta, orden, cargo) 
+    VALUES 
+    (%s, 'Clave123', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,0,%s);"""
 
-    sql = "INSERT INTO `usuario` (nombre_usuario, clave_usuario, nombre, apellidos, sexo, mail, funcion, fecha_alta, documento, creador, gerencia, jefatura, empresa, fecha_incorporacion) VALUES (%s, 'Clave123', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
-    datos=(_usuarionuevo, _nombre, _apellido, _sexo, _mail, _funcion, tiempo, _documento, session["usuario"], _gerencia, _jefatura, _empresa, _fecha_incorporacion)
+    datos=(_usuarionuevo, _nombre, _apellido, _documento, _sexo, _mail, _empresa, _funcion, _estructura, _aprobacion, _fecha_incorporacion, session["usuario"], tiempo, _cargo)
     conexion= mysql.connect()
     cursor = conexion.cursor()
     cursor.execute(sql,datos)
@@ -157,35 +167,19 @@ def editar_usuario():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("Select empresa, id from empresas")
-    empresas=cursor.fetchall()
-    conexion.commit
-
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("Select gerencia, id from gerencias")
-    gerencias=cursor.fetchall()
-    conexion.commit
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
-    cursor.execute("Select jefatura, id from jefaturas")
-    jefaturas=cursor.fetchall()
-    conexion.commit
-
-    conexion=mysql.connect()
-    cursor=conexion.cursor()
     cursor.execute("Select nivel, id from niveles")
     niveles=cursor.fetchall()
     conexion.commit
 
     _Idusuario = request.form['Idusuario']
 
-    sql = "select id, nombre_usuario, fecha_incorporacion, nombre, apellidos, documento, sexo, mail, empresa, (select empresa from empresas where empresas.id = usuario.empresa), gerencia, (select gerencia from gerencias where gerencias.id = usuario.gerencia), jefatura, (select jefatura from jefaturas where jefaturas.id = usuario.jefatura), funcion, (select nivel from niveles where niveles.id = usuario.funcion) from usuario where id = %s;"
+    sql = """select id, nombre_usuario, fecha_incorporacion, nombre, apellidos, 
+    documento, sexo, mail, funcion, empresa, orden, funcion, aprobacion
+    from usuario where id = %s;"""
+
     datos=(_Idusuario)
     conexion= mysql.connect()
     editar = conexion.cursor()
     editar.execute(sql,datos)
     conexion.commit()
-    return render_template("/admin/editar_usuario.html", editar=editar, empresas=empresas, gerencias=gerencias, jefaturas=jefaturas, niveles=niveles) 
+    return render_template("/admin/editar_usuario.html", editar=editar, niveles=niveles) 

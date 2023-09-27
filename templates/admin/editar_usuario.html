@@ -126,34 +126,6 @@
                         <br>
                         <div class = "row">
                             <div class="col">
-                                <label for="empresa" class="form-label">Empresa:</label>
-                                <select class="form-select form-control" name="empresa" id="empresa" required>
-                                    <option selected value = {{editar[8]}}>{{editar[9]}}</option>
-                                    {% for empresas in empresas %}
-                                    <option value="{{ empresas[1] }}">{{ empresas[0] }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label for="gerencia" class="form-label">Gerencia:</label>
-                                <select class="form-select form-control" name="gerencia" id="gerencia" required>
-                                    <option selected value = "{{editar[10]}}">{{editar[11]}}</option>
-                                    {% for gerencias in gerencias %}
-                                    <option value="{{ gerencias[1] }}">{{ gerencias[0] }}</option>
-                                    {% endfor %}    
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label for="jefatura" class="form-label">Jefatura:</label>
-                                <select class="form-select form-control" name="jefatura" id="jefatura" required>
-                                    <option selected value = "{{editar[12]}}">{{editar[13]}}</option>
-                                    <option value = "0" >Es Gerente</option>
-                                    {% for jefaturas in jefaturas %}
-                                    <option value="{{ jefaturas[1] }}">{{ jefaturas[0] }}</option>
-                                    {% endfor %}    
-                                </select>
-                            </div>
-                            <div class="col">
                                 <label for="funcion" class="form-label">Atributos:</label>
                                 <select class="form-select form-control" name="funcion" id="funcion" required>
                                     <option selected value = "{{editar[14]}}">{{editar[15]}}</option>

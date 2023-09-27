@@ -240,3 +240,11 @@ insert into `sitio`.orden values (20, 'Orden 2 (Tercer Linea)', 20);
 insert into `sitio`.orden values (25, 'Orden 1 (Segunda Linea)', 25);
 insert into `sitio`.orden values (30, 'Orden 0 (Primer Linea)', 30);
 insert into `sitio`.orden values (35, 'Orden Admin (Primer Linea)', 35);
+
+CREATE TABLE IF NOT EXISTS `sitio`.`cargos` 
+( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', 
+`cargo_general` varchar(100) NOT NULL COMMENT 'Cargo General',
+`cargo_sub` varchar(100) NOT NULL COMMENT 'Sub Cargo', 
+`creador` varchar(50) NOT NULL,
+`fecha` datetime NOT NULL,
+PRIMARY KEY (`id`) );

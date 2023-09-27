@@ -76,6 +76,7 @@ def admin_estructura_guardar():
     _nivel_area = 1
     tiempo = datetime.now()
     
+
     sql = "INSERT INTO `estructuras` (area, tipo_area, reporta_a, creado_por, fecha, nivel_area) VALUES (%s, %s, %s, %s, %s, %s);"
     datos=(_nombre_area, _tipo_area, _reporta_a, session["usuario"], tiempo, _nivel_area)
     conexion= mysql.connect()
@@ -83,6 +84,14 @@ def admin_estructura_guardar():
     cursor.execute(sql,datos)
     conexion.commit()
 
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("""update estructuras set nivel_area = (select orden from niveles where niveles.id = estructuras.tipo_area)""")
+    jerarquia=cursor.fetchall()
+    conexion.commit
+
+    
+    
     return redirect('/estructura')
 
 @app.route('/admin/estructura/borrar', methods=['POST'])
@@ -117,6 +126,12 @@ def admin_estructura_guardar_editar():
     cursor = conexion.cursor()
     cursor.execute(sql,datos)
     conexion.commit()
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("""update estructuras set nivel_area = (select orden from niveles where niveles.id = estructuras.tipo_area)""")
+    jerarquia=cursor.fetchall()
+    conexion.commit
 
     return redirect('/estructura')
 

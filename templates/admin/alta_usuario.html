@@ -87,7 +87,17 @@ else
                                     <span class="validity"></span>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <label for="Admin" class="form-label">Tipo Empleado:</label>
+                                    <select class="form-select form-control" name="Admin" id="Admin"  required>
+                                        <option value = "" selected>Tipo Usuario</option>
+                                        {% for admin in admin %}
+                                        <option value="{{ admin[0] }}">{{ admin[1] }}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
                         </div>
+                        
                         <br>
                         <div class = "row">
                             <div class="col">
@@ -128,30 +138,30 @@ else
                             </div>
                             <div class="col-md-3">
                                 <label for="Nivel" class="form-label">Cargo:</label>
-                                    <select class="form-select form-control" name="Nivel" id="Nivel" >
+                                    <select class="form-select form-control" name="Cargo" id="Cargo" >
                                         <option value = "" selected>Cargo / Seniority</option>
                                         {% for niveles in niveles %}
                                         <option value="{{ niveles[1] }}">{{ niveles[0] }}</option>
                                         {% endfor %}
                                     </select>
                             </div>
-                            <div class="col-md-3" id="Gerencia">
-                                <label for="Gerencia" class="form-label">Gerencia:</label>
-                                    <select class="form-select form-control" name="Gerencia">
-                                        <option value = "" selected>Escoja una Gerencia</option>
-                                        {% for gerencias in gerencias %}
-                                        <option value="{{ gerencias[1] }}">{{ gerencias[0] }}</option>
+                            <div class="col-md-3">
+                                <label for="Estructura" class="form-label">Estructura:</label>
+                                    <select class="form-select form-control" name="Estructura">
+                                        <option value = "" selected>Escoja Estructura</option>
+                                        {% for estructura in estructura %}
+                                        <option value="{{ estructura[1] }}">{{ estructura[0] }}</option>
                                         {% endfor %}
                                     </select>
                             </div>
-                            <div class="col-md-3" id="Jefatura">
-                                <label for="Jefatura" class="form-label">Jefatura:</label>
-                                <select class="form-select form-control" name="Jefatura">
-                                    <option value = "" selected>Escoja una Jefatura</option>
-                                    {% for jefaturas in jefaturas %}
-                                    <option value="{{ jefaturas[1] }}">{{ jefaturas[0] }}</option>
-                                    {% endfor %}
-                                </select>
+                            <div class="col-md-3" id="Aprobacion">
+                                <label for="Aprobacion" class="form-label">Aprobacion:</label>
+                                    <select class="form-select form-control" name="Aprobacion">
+                                        <option value = "" selected>Escoja Aprobacion</option>
+                                        {% for aprobacion in aprobacion %}
+                                        <option value="{{ aprobacion[0] }}">{{ aprobacion[1] }}</option>
+                                        {% endfor %}
+                                    </select>
                             </div>
                         </div>
                         <br>

@@ -78,23 +78,19 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-header">
-                    Datos de las Empresas
+                    Datos del Cargo
                 </div>
                 <div class="card-body">
-                    {% for empresas in empresas %}
-                    <form action ="/admin/empresa/guardar_editar" method="post" enctype = "multipart/form-data">
-                        <input value = "{{ empresas[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
+                    {% for rep_cargos in rep_cargos %}
+                    <form action ="/admin/cargo/guardar_editar" method="post" enctype = "multipart/form-data">
+                        <input value = "{{ rep_cargos[0] }}" type="hidden" name = "txtId" id = "txtId" autocomplete="off">
                         <div class="mb-3">
-                            <label for="txtEmpresa" class="form-label">Empresa</label>
-                            <input type="text" class="form-control" name="txtEmpresa" id="txtEmpresa" aria-describedby="helpId" value = "{{ empresas[1] }}" required>
+                            <label for="Cargo" class="form-label">Cargo</label>
+                            <input type="text" class="form-control" name="Cargo" id="Cargo" aria-describedby="helpId" value = "{{ rep_cargos[1] }}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="txtCuit" class="form-label">CUIT</label>
-                            <input type="text" class="form-control" name="txtCuit" id="txtCuit" aria-describedby="helpId" value = {{ empresas[4] }} required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtDomicilio" class="form-label">Domicilio</label>
-                            <input type="text" class="form-control" name="txtDomicilio" id="txtDomicilio" aria-describedby="helpId" value = "{{ empresas[5] }}" required>
+                            <label for="Subcargo" class="form-label">Sub-Cargo</label>
+                            <input type="text" class="form-control" name="Subcargo" id="Subcargo" aria-describedby="helpId" value = "{{ rep_cargos[2] }}" required>
                         </div>
                         <button type="submit" class="btn btn-warning" onclick="return confirmChanges()">Modificar</button>
                         <a class="btn btn-info" style="color: white;" href="/empresa" onclick="return confirmChanges()">Descartar</a>

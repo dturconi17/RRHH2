@@ -77,21 +77,17 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-header">
-                    Datos de las Empresas
+                    Datos del Cargo
                 </div>
                 <div class="card-body">
-                    <form action ="/admin/empresa/guardar" method="post" enctype = "multipart/form-data">
+                    <form action ="/admin/cargo/guardar" method="post" enctype = "multipart/form-data">
                         <div class="mb-3">
-                            <label for="txtEmpresa" class="form-label">Empresa</label>
-                            <input type="text" class="form-control" name="txtEmpresa" id="txtEmpresa" aria-describedby="helpId" placeholder = "Nombre de la Empresa" required>
+                            <label for="Cargo" class="form-label">Cargo</label>
+                            <input type="text" class="form-control" name="Cargo" id="Cargo" aria-describedby="helpId" placeholder = "Nombre del Cargo" required>
                         </div>
                         <div class="mb-3">
-                            <label for="txtCuit" class="form-label">CUIT</label>
-                            <input type="text" class="form-control" name="txtCuit" id="txtCuit" aria-describedby="helpId" placeholder = "CUIT" onKeyPress='return numbersonly(this, event)' required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtDomicilio" class="form-label">Domicilio</label>
-                            <input type="text" class="form-control" name="txtDomicilio" id="txtDomicilio" aria-describedby="helpId" placeholder = "Domicilio" required>
+                            <label for="txtCuit" class="form-label">Sub-Cargo</label>
+                            <input type="text" class="form-control" name="Subcargo" id="Subcargo" aria-describedby="helpId" placeholder = "Nombre del Sub-Cargo">
                         </div>
                         <button type="submit" class="btn btn-primary">Agregar</button>
                     </form>
@@ -107,32 +103,30 @@
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Empresa</th>
-                            <th scope="col">Cuit</th>
-                            <th scope="col">Domicilio</th>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">Sub-Cargo</th>
                             <th scope="col">Creado por</th>
                             <th scope="col">Fecha</th>
                             <th scope="col" colspan="2" style="text-align: center;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for empresas in empresas %}
+                        {% for rep_cargos in rep_cargos %}
                         <tr class="">
-                            <td scope="row">{{ empresas[0] }}</td>
-                            <td>{{ empresas[1] }}</td>
-                            <td>{{ empresas[4] }}</td>
-                            <td>{{ empresas[5] }}</td>
-                            <td>{{ empresas[3] }}</td>
-                            <td>{{ empresas[2] }}</td>
+                            <td scope="row">{{ rep_cargos[0] }}</td>
+                            <td>{{ rep_cargos[1] }}</td>
+                            <td>{{ rep_cargos[2] }}</td>
+                            <td>{{ rep_cargos[4] }}</td>
+                            <td>{{ rep_cargos[3] }}</td>
                             <td>
-                                <form action="/admin/empresa/borrar" method="post" >
-                                <input value = "{{ empresas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <form action="/admin/cargo/borrar" method="post" >
+                                <input value = "{{ rep_cargos[0] }}" type="hidden" name = "txtId" id = "txtId">
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="/admin/empresa/editar" method="post" >
-                                    <input value = "{{ empresas[0] }}" type="hidden" name = "txtId" id = "txtId">
+                                <form action="/admin/cargo/editar" method="post" >
+                                    <input value = "{{ rep_cargos[0] }}" type="hidden" name = "txtId" id = "txtId">
                                     <button type="submit" class="btn btn-warning btn-sm">Editar</button>
                                 </form>
                             </td>

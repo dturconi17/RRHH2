@@ -20,32 +20,32 @@ def cargos():
     cursor=conexion.cursor()
     cursor.execute("""Select id, cargo_general, cargo_sub, 
                    CONCAT(DAY(fecha), '/',MONTH(fecha), '/',YEAR(fecha)), 
-                   (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por)
+                   (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creador)
                    from cargos""")
-    empresas=cursor.fetchall()
+    rep_cargos=cursor.fetchall()
     conexion.commit
    
-    return render_template("/admin/cargos.html", empresas=empresas)
+    return render_template("/admin/cargos.html", rep_cargos=rep_cargos)
 
 @app.route('/admin/cargo/guardar', methods=['POST'])
 def admin_cargos_guardar():
 
     logs.logs1('Guardar Cargo')
 
-    _empresa = request.form['txtEmpresa']
-    _domicilio = request.form['txtDomicilio']
-    _cuit = request.form['txtCuit']
+    _cargo = request.form['Cargo']
+    _subcargo = request.form['Subcargo']
+    
 
     tiempo = datetime.now()
     
-    sql = "INSERT INTO `empresas` (empresa, creado_por, fecha, domicilio, cuit) VALUES (%s, %s, %s, %s, %s);"
-    datos=(_empresa, session["usuario"], tiempo, _domicilio, _cuit)
+    sql = "INSERT INTO `cargos` (cargo_general, cargo_sub, creador, fecha) VALUES (%s, %s, %s, %s);"
+    datos=(_cargo, _subcargo, session["usuario"], tiempo, )
     conexion= mysql.connect()
     cursor = conexion.cursor()
     cursor.execute(sql,datos)
     conexion.commit()
 
-    return redirect('/empresa')
+    return redirect('/cargos')
 
 @app.route('/admin/cargo/guardar_editar', methods=['POST'])
 def admin_cargos_guardar_editar():
@@ -53,20 +53,20 @@ def admin_cargos_guardar_editar():
     logs.logs1('Guardar Editar Cargo')
 
     _id = request.form['txtId']
-    _empresa = request.form['txtEmpresa']
-    _domicilio = request.form['txtDomicilio']
-    _cuit = request.form['txtCuit']
+
+    _cargo = request.form['Cargo']
+    _subcargo = request.form['Subcargo']
 
     tiempo = datetime.now()
     
-    sql = "update `empresas` set empresa = %s, creado_por = %s, fecha = %s, domicilio = %s, cuit = %s where id = %s;"
-    datos=(_empresa, session["usuario"], tiempo, _domicilio, _cuit, _id)
+    sql = "update `cargos` set cargo_general = %s, cargo_sub = %s, creador = %s, fecha = %s where id = %s;"
+    datos=(_cargo, _subcargo, session["usuario"], tiempo, _id)
     conexion= mysql.connect()
     cursor = conexion.cursor()
     cursor.execute(sql,datos)
     conexion.commit()
 
-    return redirect('/cargo')
+    return redirect('/cargos')
 
 @app.route('/admin/cargo/borrar', methods=['POST'])
 def admin_cargo_borrar():
@@ -77,10 +77,10 @@ def admin_cargo_borrar():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("delete from empresas WHERE id=%s", (_id))
+    cursor.execute("delete from cargos WHERE id=%s", (_id))
     libros=cursor.fetchall()
     conexion.commit()
-    return redirect('/cargo')
+    return redirect('/cargos')
 
 @app.route('/admin/cargo/editar', methods=['POST'])
 def admin_cargo_editar():
@@ -91,13 +91,11 @@ def admin_cargo_editar():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("""Select id, empresa, 
+    cursor.execute("""Select id, cargo_general, cargo_sub, 
                    CONCAT(DAY(fecha), '/',MONTH(fecha), '/',YEAR(fecha)), 
-                   (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creado_por),
-                   cuit,
-                   domicilio
-                   from empresas where id = %s;""", (_id))
-    empresas=cursor.fetchall()
+                   (select concat(nombre,' ', apellidos) from usuario where nombre_usuario = creador)
+                   from cargos where id = %s;""", (_id))
+    rep_cargos=cursor.fetchall()
     conexion.commit
    
-    return render_template("/admin/cargos_editar.html", empresas=empresas)
+    return render_template("/admin/cargo_editar.html", rep_cargos=rep_cargos)

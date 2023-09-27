@@ -17,9 +17,10 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Funcion</th>
-                        <th scope="col">Gerencia</th>
-                        <th scope="col">Jefatura</th>
-                        <th scope="col">Atributo</th>
+                        <th scope="col">Aprobacion</th>
+                        <th scope="col">Estructura</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col" colspan="3" style="text-align: center;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,9 +30,10 @@
                         <td>{{ usuarios[1] }}</td>
                         <td>{{ usuarios[2] }}</td>
                         <td>{{ usuarios[3] }}</td>
-                        <td>{{ usuarios[4] }}</td>
                         <td>{{ usuarios[5] }}</td>
                         <td>{{ usuarios[6] }}</td>
+                        <td>{{ usuarios[7] }}</td>
+                        <td>{{ usuarios[8] }}</td>
                         <td>
                             <form action="usuarios/borrar" method="post" >
                             <input value = "{{ usuarios[0] }}" type="hidden" name = "Idusuario" id = "Idusuario"></input>
