@@ -79,62 +79,91 @@
                     Edicion de Usuario: <b>{{editar[1]}}</b>
                 </div>
                 <div class="card-body">
-                    <form action ="editar_usuarionuevo" method="post" enctype = "multipart/form-data">
-                        <div class = "row">
-                            <div class="col">
-                                <input type="hidden" value = "{{editar[0]}}" class="form-control" name="Idusuario" id="Idusuario" aria-describedby="helpId">
+                    <div class = "row">
+                        <div class = "col-md-3">
+                            <div class="mb-3">
+                                <label for="desde" class="form-label">Fecha de Incorporacion:</label>
+                                <input type="date" class="form-control" name="fecha_incorporacion" id="fecha_incorporacion" aria-describedby="helpId" required>
+                                <span class="validity"></span>
                             </div>
                         </div>
-                        <div class = "row">
-                            <div class = "col-md-3">
-                                <div class="mb-3">
-                                    <label for="desde" class="form-label">Fecha de Incorporacion:</label>
-                                    <input type="date" class="form-control" value = {{editar[2]}} name="fecha_incorporacion" id="fecha_incorporacion" aria-describedby="helpId" required>
-                                    <span class="validity"></span>
-                                </div>
-                            </div>
+                        <div class="col-md-3">
+                            <label for="Admin" class="form-label">Tipo Empleado:</label>
+                                <select class="form-select form-control" name="Admin" id="Admin"  required>
+                                    <option value = "" selected>Tipo Usuario</option>
+                                    {% for admin in admin %}
+                                    <option value="{{ admin[0] }}">{{ admin[1] }}</option>
+                                    {% endfor %}
+                                </select>
                         </div>
-                        <div class = "row">
+                    </div>
+                    
+                    <br>
+                    <div class = "row">
+                        <div class="col">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" required onKeyPress='return lettersonly(this, event)'>
+                        </div>
                             <div class="col">
-                                <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" value = "{{editar[3]}}" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" required onKeyPress='return lettersonly(this, event)'>
-                            </div>
-                            <div class="col">
-                                <label for="apellido" class="form-label">Apellido:</label>
-                                <input type="text" value = "{{editar[4]}}" class="form-control" name="apellido" id="apellido" aria-describedby="helpId" required onKeyPress='return lettersonly(this, event)'>
-                            </div>
-                            <div class="col">
-                                <label for="documento" class="form-label">Documento:</label>
-                                <input type="text" value = "{{editar[5]}}" class="form-control" name="documento" id="documento" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
-                            </div>
-                        </div>            
-                        <br>
-                        <div class = "row">
-                            <div class="col-md-3">
-                                <label for="sexo" class="form-label">Sexo:</label>
-                                <select class="form-select form-control" name="sexo" id="sexo" required>
-                                    <option selected value = {{editar[6]}}>{{editar[6]}}</option>
+                            <label for="apellido" class="form-label">Apellido:</label>
+                            <input type="text" class="form-control" name="apellido" id="apellido" aria-describedby="helpId" required onKeyPress='return lettersonly(this, event)'>
+                        </div>
+                        <div class="col">
+                            <label for="documento" class="form-label">Documento:</label>
+                            <input type="text" class="form-control" name="documento" id="documento" aria-describedby="helpId" required onKeyPress='return numbersonly(this, event)'>
+                        </div>
+                        <div class="col">
+                            <label for="sexo" class="form-label">Sexo:</label>
+                            <select class="form-select form-control" name="sexo" id="sexo"  required>
+                                    <option value="" selected>Escoja Sexo</option>
                                     <option value="Hombre">Hombre</option>
                                     <option value="Mujer">Mujer</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="mail" class="form-label">Mail:</label>
-                                <input type="email" value = "{{editar[7]}}" class="form-control" name="mail" id="mail" aria-describedby="helpId" required>
-                            </div>
+                            </select>
                         </div>
-                        <br>
-                        <div class = "row">
-                            <div class="col">
-                                <label for="funcion" class="form-label">Atributos:</label>
-                                <select class="form-select form-control" name="funcion" id="funcion" required>
-                                    <option selected value = "{{editar[14]}}">{{editar[15]}}</option>
+                        <div class="col">
+                            <label for="mail" class="form-label">Mail:</label>
+                            <input type="email" class="form-control" style="width: 300px;" name="mail" id="mail" aria-describedby="helpId"  required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class = "row">
+                        <div class="col-md-3">
+                            <label for="Empresa" class="form-label">Empresa:</label>
+                                <select class="form-select form-control" name="Empresa" id="Empresa"  required>
+                                    <option value = "" selected>Escoja una Empresa</option>
+                                    {% for empresas in empresas %}
+                                    <option value="{{ empresas[1] }}">{{ empresas[0] }}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="Nivel" class="form-label">Cargo:</label>
+                                <select class="form-select form-control" name="Cargo" id="Cargo" >
+                                    <option value = "" selected>Cargo / Seniority</option>
                                     {% for niveles in niveles %}
                                     <option value="{{ niveles[1] }}">{{ niveles[0] }}</option>
-                                    {% endfor %}    
+                                    {% endfor %}
                                 </select>
-                            </div>
                         </div>
+                        <div class="col-md-3">
+                            <label for="Estructura" class="form-label">Estructura:</label>
+                                <select class="form-select form-control" name="Estructura">
+                                    <option value = "" selected>Escoja Estructura</option>
+                                    {% for estructura in estructura %}
+                                    <option value="{{ estructura[1] }}">{{ estructura[0] }}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                        <div class="col-md-3" id="Aprobacion">
+                            <label for="Aprobacion" class="form-label">Aprobacion:</label>
+                                <select class="form-select form-control" name="Aprobacion">
+                                    <option value = "" selected>Escoja Aprobacion</option>
+                                    {% for aprobacion in aprobacion %}
+                                    <option value="{{ aprobacion[0] }}">{{ aprobacion[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                    </div>
                         <br>
                         <div class = "row">
                             <div class = "col-md-2">            

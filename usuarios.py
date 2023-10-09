@@ -18,7 +18,25 @@ def usuarios():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("SELECT id, nombre_usuario, nombre, apellidos, orden, funcion, aprobacion, estructura, cargo FROM usuario")
+    cursor.execute("""SELECT 
+                   id, 
+                   nombre_usuario, 
+                   nombre, 
+                   apellidos, 
+                   orden, 
+                   (select nivel from niveles where niveles.id = usuario.funcion), 
+                   (select descripcion from aprobaciones where aprobacion = id), 
+                   
+                   concat((
+                   select nivel from niveles where orden =
+                   (select nivel_area from estructuras b where b.id = 
+                   (select reporta_a from estructuras where id = usuario.estructura)
+                   )),' ',
+                   (select area from estructuras b where b.id = 
+                   (select reporta_a from estructuras where id = usuario.estructura)
+                   )),
+                   concat((select cargo_general from cargos where cargo = cargos.id),' ',(select area from estructuras where estructura = id))
+                   FROM usuario""")
     usuarios=cursor.fetchall()
     conexion.commit
     
@@ -167,19 +185,68 @@ def editar_usuario():
 
     conexion=mysql.connect()
     cursor=conexion.cursor()
-    cursor.execute("Select nivel, id from niveles")
+    cursor.execute("Select empresa, id from empresas")
+    empresas=cursor.fetchall()
+    conexion.commit
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select concat(cargo_general,' - ',cargo_sub), id from cargos")
     niveles=cursor.fetchall()
+    conexion.commit
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select concat((select nivel from niveles where tipo_area = niveles.id),' ',area), id from estructuras")
+    estructura=cursor.fetchall()
+    conexion.commit
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select  id, descripcion from aprobaciones")
+    aprobacion=cursor.fetchall()
+    conexion.commit
+
+    conexion=mysql.connect()
+    cursor=conexion.cursor()
+    cursor.execute("Select  id, nivel from niveles where id in (1,15)")
+    admin=cursor.fetchall()
     conexion.commit
 
     _Idusuario = request.form['Idusuario']
 
-    sql = """select id, nombre_usuario, fecha_incorporacion, nombre, apellidos, 
-    documento, sexo, mail, funcion, empresa, orden, funcion, aprobacion
-    from usuario where id = %s;"""
+    sql = """SELECT 
+                   id, 
+                   nombre_usuario, 
+                   
+                   CONCAT(DAY(fecha_incorporacion), '/',MONTH(fecha_incorporacion), '/',YEAR(fecha_incorporacion)),
+                   (select nivel from niveles where niveles.id = usuario.funcion), 
+                   (select id from niveles where niveles.id = usuario.funcion), 
+                   nombre, 
+                   apellidos,
+                   documento,
+                   sexo,
+                   mail,
+                   (Select id from empresas where usuario.empresa = id),
+                   (Select empresa from empresas where usuario.empresa = id),
+                   orden, 
+                   
+                   (select descripcion from aprobaciones where aprobacion = id), 
+                   
+                   concat((
+                   select nivel from niveles where orden =
+                   (select nivel_area from estructuras b where b.id = 
+                   (select reporta_a from estructuras where id = usuario.estructura)
+                   )),' ',
+                   (select area from estructuras b where b.id = 
+                   (select reporta_a from estructuras where id = usuario.estructura)
+                   )),
+                   concat((select cargo_general from cargos where cargo = cargos.id),' ',(select area from estructuras where estructura = id))
+                   FROM usuario where id = %s;"""
 
     datos=(_Idusuario)
     conexion= mysql.connect()
     editar = conexion.cursor()
     editar.execute(sql,datos)
     conexion.commit()
-    return render_template("/admin/editar_usuario.html", editar=editar, niveles=niveles) 
+    return render_template("/admin/editar_usuario.html", editar=editar, admin=admin, niveles = niveles, empresas = empresas, estructura=estructura, aprobacion = aprobacion) 
